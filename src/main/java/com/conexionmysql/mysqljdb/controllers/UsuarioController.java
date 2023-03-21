@@ -1,5 +1,6 @@
 package com.conexionmysql.mysqljdb.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.conexionmysql.mysqljdb.models.Usuario;
 import com.conexionmysql.mysqljdb.services.UsuarioRepository;
@@ -28,10 +30,27 @@ import com.conexionmysql.mysqljdb.services.UsuarioRepository;
 @Validated 
 public class UsuarioController {
 
-  private static final String MultiValueMap = null;
   @Autowired
   private UsuarioRepository usuarioRepository;
 
+
+  @GetMapping("/otromas")
+  public ModelAndView getget() {
+      List<Usuario> userList = new ArrayList<>();
+      Usuario p = new Usuario();
+      p.setName("John");
+      Usuario p1 = new Usuario();
+      p.setName("Misdo");
+      userList.add(p1);
+    
+      
+      ModelAndView modelAndView = new ModelAndView("user-list");
+      modelAndView.addObject("users", userList);
+      
+      return modelAndView;
+  }
+
+  
   @GetMapping("/usuario")
   public List<Usuario> obtenerAll() {
     return usuarioRepository.findAll();
