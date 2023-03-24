@@ -49,6 +49,8 @@ CREATE TABLE reservations (
   user_id INT NOT NULL,
   room_id INT NOT NULL,
   reservation_state_id INT NOT NULL,
+  check_in_date DATE NOT NULL,
+  check_out_date DATE NOT NULL,
   PRIMARY KEY (reservation_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
   FOREIGN KEY (room_id) REFERENCES rooms(room_id),
