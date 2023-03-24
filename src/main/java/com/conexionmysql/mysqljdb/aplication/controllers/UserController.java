@@ -1,6 +1,6 @@
 package com.conexionmysql.mysqljdb.aplication.controllers;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.conexionmysql.mysqljdb.aplication.services.UserRepository;
@@ -27,22 +28,23 @@ import com.conexionmysql.mysqljdb.domain.models.User;
 
 @RestController
 @Validated
+@RequestMapping("/api/user")
 public class UserController {
 
   @Autowired
   private UserRepository usuarioRepository;
 
-  @GetMapping("/users")
+  @GetMapping  
   public List<User> obtenerAll() {
     return usuarioRepository.findAll();
   }
 
-  @PostMapping("/user")
+  @PostMapping
   public User agregarUsuario(@RequestBody User nuevoUsuario) {
     return usuarioRepository.save(nuevoUsuario);
   }
 
-  @PutMapping("user/{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<User> updateUsuario(@PathVariable Long id, @RequestBody @Valid User usuario) {
     Optional<User> usuarioOptional = usuarioRepository.findById(id);
     if (usuarioOptional.isPresent()) {
@@ -60,7 +62,7 @@ public class UserController {
     }
   }
 
-  @DeleteMapping("/usuario/{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<?> deleteUsuario(@PathVariable Long id) {
     Optional<User> usuarioOptional = usuarioRepository.findById(id);
     Map<String, String> responseHash = new HashMap<>();

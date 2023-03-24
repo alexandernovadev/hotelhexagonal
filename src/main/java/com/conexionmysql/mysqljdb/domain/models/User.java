@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -25,11 +27,11 @@ public class User {
 
    private String user_type;
 
-   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-   private Long user_state;
+ 
+   private Integer user_state_id;
+
    private String name;
    private String email;
    private String password;
-   private String state;
 
 }

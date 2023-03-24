@@ -26,6 +26,4 @@ public class UserState {
   private Long user_state_id; 
   private String state;
 
-  @OneToOne(mappedBy = "userState")
-    private User user;
 }
