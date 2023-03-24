@@ -1,41 +1,35 @@
 package com.conexionmysql.mysqljdb.domain.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
 @Entity
-@Table(name = "usuarios")
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Usuario {
+public class User {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id;
+   private Long user_id;
 
-   private String surname;
+   private String user_type;
 
-   @NotBlank(message = "Name is required")
-   @Size(max = 50, message = "Name must be less than 50 characters")
+   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+   private Long user_state;
    private String name;
-
-   @NotBlank(message = "Email is required")
-   @Email(message = "Email must be a valid email address")
    private String email;
-
-   private String phone;
-   private String city;
    private String password;
+   private String state;
+
 }
