@@ -10,16 +10,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Entity
-@Table(name = "users_state")
+@Table(name = "rooms_state")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserState {
+public class RoomState {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long user_state_id; 
+  private Long rooms_state_id; 
   private String state;
 }

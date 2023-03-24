@@ -12,14 +12,18 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "users_state")
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserState {
+public class Room {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long user_state_id; 
+  private Long room_id;
+  private String type_room_id;
   private String state;
+  private String name;
+  private String description;
 }
