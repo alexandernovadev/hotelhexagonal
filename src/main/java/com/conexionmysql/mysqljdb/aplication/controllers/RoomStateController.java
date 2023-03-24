@@ -5,13 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,40 +19,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.conexionmysql.mysqljdb.aplication.services.UserRepository;
-import com.conexionmysql.mysqljdb.domain.models.User;
+import com.conexionmysql.mysqljdb.aplication.services.RoomStateRepository;
+import com.conexionmysql.mysqljdb.domain.models.RoomState;
 
 @RestController
 @Validated
-@RequestMapping("/api/user")
-public class UserController {
+@RequestMapping("/api/roomstate")
+public class RoomStateController {
 
   @Autowired
-  private UserRepository userRepository;
+  private RoomStateRepository roomRepository;
 
-  @GetMapping  
-  public List<User> getAll() {
-    // Filter ?
-    return userRepository.findAll();
+  @GetMapping
+  public List<RoomState> getAll() {
+    return roomRepository.findAll();
   }
 
   @PostMapping
-  public User create(@RequestBody User newUser) {
-    return userRepository.save(newUser);
+  public RoomState create(@RequestBody RoomState newRoom) {
+    return roomRepository.save(newRoom);
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<User> update(@PathVariable Long id, @RequestBody @Valid User usuario) {
-    Optional<User> finduser = userRepository.findById(id);
-    if (finduser.isPresent()) {
-      usuario.setUser_id(id);
+  public ResponseEntity<RoomState> updateUsuario(@PathVariable Long id, @RequestBody RoomState roomstate) {
+    Optional<RoomState> findroom = roomRepository.findById(id);
+    if (findroom.isPresent()) {
+      roomstate.setRooms_state_id(id);
       try {
-        User savedUser = userRepository.save(usuario);
-        return new ResponseEntity<>(savedUser, HttpStatus.OK);
+        RoomState savedRoom = roomRepository.save(roomstate);
+        return new ResponseEntity<>(savedRoom, HttpStatus.OK);
       } catch (Exception e) {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
       }
-
     } else {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -63,18 +58,18 @@ public class UserController {
 
   @DeleteMapping("/{id}")
   public ResponseEntity<?> delete(@PathVariable Long id) {
-    Optional<User> findUser = userRepository.findById(id);
+    Optional<RoomState> findroom = roomRepository.findById(id);
     Map<String, String> responseHash = new HashMap<>();
-    if (findUser.isPresent()) {
-      userRepository.deleteById(id);
-
-      responseHash.put("success", "User Deleted Successfully");
+    if (findroom.isPresent()) {
+      roomRepository.deleteById(id);
+      responseHash.put("success", "RoomState Deleted Successfully");
 
       return ResponseEntity.ok().body(responseHash);
     } else {
-      responseHash.put("error", "User No found");
+      responseHash.put("error", "RoomState No found");
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseHash);
 
     }
   }
+
 }

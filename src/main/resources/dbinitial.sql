@@ -38,14 +38,21 @@ CREATE TABLE users (
   FOREIGN KEY (user_state_id) REFERENCES users_state(user_state_id)
 );
 
+CREATE TABLE reservations_state (
+  reservation_state_id INT NOT NULL AUTO_INCREMENT,
+  state VARCHAR(50) NOT NULL,
+  PRIMARY KEY (reservation_state_id)
+);
+
 CREATE TABLE reservations (
   reservation_id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
   room_id INT NOT NULL,
-  state VARCHAR(50) NOT NULL,
+  reservation_state_id INT NOT NULL,
   PRIMARY KEY (reservation_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
-  FOREIGN KEY (room_id) REFERENCES rooms(room_id)
+  FOREIGN KEY (room_id) REFERENCES rooms(room_id),
+  FOREIGN KEY (reservation_state_id) REFERENCES reservations_state(reservation_state_id)
 );
 
 CREATE TABLE sales_state (
@@ -63,4 +70,4 @@ CREATE TABLE sales (
   FOREIGN KEY (user_id) REFERENCES users(user_id),
   FOREIGN KEY (reservation_id) REFERENCES reservations(reservation_id),
   FOREIGN KEY (sales_state_id) REFERENCES sales_state(sales_state_id)
-)
+);
