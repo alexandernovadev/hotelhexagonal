@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <h1>Hello mart  <button onclick="getUsers()">RESET</button></h1>
+  <h1>Hello mart <button onclick="getUsers()">RESET</button></h1>
   <table>
     <thead>
       <tr>
@@ -70,7 +70,7 @@
     orderName: true
   }
 
-  const onFilterCity = ()=> {
+  const onFilterCity = () => {
     const selectcity = document.getElementById('selectcity');
     const city = selectcity.value;
     console.log("city", city);
@@ -106,38 +106,11 @@
 
     if (!data) {
       render(redux.users)
-      return 
+      return
     } else {
       redux.users = data
       render(data)
     }
-  }
-
-  const add = async () => {
-    const name = document.getElementById(`name-new`).value;
-    const surname = document.getElementById(`surname-new`).value;
-    const email = document.getElementById(`email-new`).value;
-    const phone = document.getElementById(`phone-new`).value;
-    const city = document.getElementById(`city-new`).value;
-    const password = document.getElementById(`password-new`).value;
-
-    const response = await fetch(`/usuario`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name,
-        surname,
-        email,
-        phone,
-        city,
-        password
-      })
-    });
-    const data = await response.json();
-  
-    getUsers();
   }
 
 
@@ -154,8 +127,6 @@
   const getUsers = async () => {
     const response = await fetch('/usuario');
     const data = await response.json();
-
-
     users.innerHTML = '';
     redux.users = data
     render(data)
@@ -179,10 +150,10 @@
     });
   }
 
-const render = (data )=> {
-  const users = document.getElementById('users');
-  users.innerHTML = ""
-  data.forEach(user => {
+  const render = (data) => {
+    const users = document.getElementById('users');
+    users.innerHTML = ""
+    data.forEach(user => {
       users.innerHTML += /*html*/`
         <tr>
           <td >
@@ -213,28 +184,58 @@ const render = (data )=> {
         </tr>
       `
     });
-}
+  }
+
+  const dataDTO = {
+    id: '',
+    name: '',
+    surname: '',
+    email: '',
+    phone: '',
+    city: '',
+    password: ''
+  }
+
+  const formatData = (id) => {
+
+    const copy = { ...dataDTO }
+
+    Object.keys(dataDTO).forEach(key => {
+      copy[key] = document.getElementById(key + '-' + id).value;
+
+    })
+    return copy
+  }
+
+  const add = async () => {
+    let dataUser = formatData('new')
+    delete dataUser.id
+
+    const response = await fetch(`/usuario`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dataUser)
+    });
+    const data = await response.json();
+
+    getUsers();
+  }
+
+
   const editUser = async (id) => {
-    const name = document.getElementById(`name-${id}`).value;
-    const surname = document.getElementById(`surname-${id}`).value;
-    const email = document.getElementById(`email-${id}`).value;
-    const phone = document.getElementById(`phone-${id}`).value;
-    const city = document.getElementById(`city-${id}`).value;
-    const password = document.getElementById(`password-${id}`).value;
+
+
+    let dataUser = formatData(id)
+    delete dataUser.id
 
     const response = await fetch(`/usuario/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        name,
-        surname,
-        email,
-        phone,
-        city,
-        password
-      })
+      body: JSON.stringify(dataUser)
     });
     const data = await response.json();
     getUsers();

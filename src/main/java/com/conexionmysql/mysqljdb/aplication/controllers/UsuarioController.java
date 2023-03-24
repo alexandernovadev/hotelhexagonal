@@ -1,4 +1,4 @@
-package com.conexionmysql.mysqljdb.controllers;
+package com.conexionmysql.mysqljdb.aplication.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.conexionmysql.mysqljdb.models.Usuario;
-import com.conexionmysql.mysqljdb.services.UsuarioRepository;
+import com.conexionmysql.mysqljdb.aplication.services.UsuarioRepository;
+import com.conexionmysql.mysqljdb.domain.models.Usuario;
 
 @RestController
 @Validated 
