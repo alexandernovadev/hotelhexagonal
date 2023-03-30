@@ -1,4 +1,4 @@
-package com.conexionmysql.mysqljdb.aplication.services;
+package com.conexionmysql.mysqljdb.domain.services;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

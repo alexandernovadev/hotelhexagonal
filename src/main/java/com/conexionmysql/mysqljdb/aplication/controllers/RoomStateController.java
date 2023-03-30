@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.conexionmysql.mysqljdb.aplication.services.RoomStateRepository;
 import com.conexionmysql.mysqljdb.domain.models.RoomState;
+import com.conexionmysql.mysqljdb.domain.services.RoomStateRepository;
 
 @RestController
 @Validated

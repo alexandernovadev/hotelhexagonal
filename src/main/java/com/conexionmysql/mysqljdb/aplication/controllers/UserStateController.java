@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.conexionmysql.mysqljdb.aplication.services.UserStateRepository;
 import com.conexionmysql.mysqljdb.domain.models.UserState;
+import com.conexionmysql.mysqljdb.domain.services.UserStateRepository;
 
 @RestController
 @Validated

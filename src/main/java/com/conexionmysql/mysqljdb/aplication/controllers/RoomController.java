@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.conexionmysql.mysqljdb.aplication.services.RoomRepository;
 import com.conexionmysql.mysqljdb.domain.models.Room;
+import com.conexionmysql.mysqljdb.domain.services.RoomRepository;
 
 @RestController
 @Validated
-@RequestMapping("/api/room")
+@RequestMapping("/api/rooms")
 public class RoomController {
 
   @Autowired
