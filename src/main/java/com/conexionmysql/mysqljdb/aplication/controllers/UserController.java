@@ -34,7 +34,6 @@ public class UserController {
 
   @GetMapping  
   public List<User> getAll() {
-    // Filter ?
     return userRepository.findAll();
   }
 
