@@ -1,246 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Hotels Marts</title>
 </head>
-
 <body>
-  <h1>Hello mart  <button onclick="getUsers()">RESET</button></h1>
-  <table>
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>name <button onclick="order()">O</button> <input type="text" onkeyup="filter(event)"></th>
-        <th>surname</th>
-        <th>email</th>
-        <th>phone</th>
-        <th>city
-          <select name="" id="selectcity" onchange="onFilterCity()">
-            <option value="1">1</option>
 
-          </select>
-        </th>
-        <th>password</th>
-        <th>...</th>
-      </tr>
-    </thead>
-    <tbody id="users">
-    </tbody>
-    <tfoot>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">DASH | HotelsMart</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link"  aria-current="page" href="/index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users.html">Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/rooms.html">Rooms</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/reservations.html">Reservation</a>
+          </li>
+        </ul>
+        <span class="navbar-text">
+          Test UI hotelMarts
+        </span>
+      </div>
+    </div>
+  </nav>
 
-      <tr>
-        <td>
-          <input id="id-new" name="new" value="new" disabled />
-        </td>
-        <td>
-          <input id="name-new" value="${user.name}" />
-        </td>
-        <td>
-          <input id="surname-new" value="${user.surname}" />
-        </td>
-        <td>
-          <input id="email-new" value="${user.email}" />
-        </td>
-        <td>
-          <input id="phone-new" value="${user.phone}" />
-        </td>
-        <td>
-          <input id="city-new" value="${user.city}" />
-        </td>
-        <td>
-          <input id="password-new" value="${user.password}" />
-        </td>
-        <td>
-          <button onclick="add()">ADD</button>
-
-        </td>
-      </tr>
-    </tfoot>
-  </table>
-
+  <ul class="list-group">
+    <li class="list-group-item active" aria-current="true">IA report</li>
+    <li class="list-group-item">20% mas probailidaes de arrendar la habitacion #34 en la siguiente semana </li>
+    <li class="list-group-item"><b>2.000 USD</b> ventas mes Abril 2023 </li>
+    <li class="list-group-item">Las habitaciones mas solicitadas son <b>#53</b> <b>#522</b><b>#5</b></li>
+    <li class="list-group-item">La ventas de este mes no superan las mel anterior (faltan 12 dias para terminar Abril)</li>
+  </ul>
 
 </body>
-<script>
-  let redux = {
-    users: [],
-    orderName: true
-  }
-
-  const onFilterCity = ()=> {
-    const selectcity = document.getElementById('selectcity');
-    const city = selectcity.value;
-    console.log("city", city);
-    const data = redux.users.filter((user) => {
-      return user.city === city
-    })
-    render(data)
-    redux.users = data
-  }
-
-  const order = (asc) => {
-    redux.orderName = !redux.orderName
-
-    const data = redux.users.sort((a, b) => {
-      if (redux.orderName) {
-        return a.name.localeCompare(b.name)
-      } else {
-        return b.name.localeCompare(a.name)
-      }
-    })
-    redux.users = data
-    render(data)
-  }
-
-  const filter = (event) => {
-    const inputValue = event.target.value;
-    console.log("value", inputValue);
-    const data = redux.users.filter((user) => {
-      return user.name.toLowerCase().includes(inputValue.toLowerCase())
-    })
-
-    console.log("data", data);
-
-    if (!data) {
-      render(redux.users)
-      return 
-    } else {
-      redux.users = data
-      render(data)
-    }
-  }
-
-  const add = async () => {
-    const name = document.getElementById(`name-new`).value;
-    const surname = document.getElementById(`surname-new`).value;
-    const email = document.getElementById(`email-new`).value;
-    const phone = document.getElementById(`phone-new`).value;
-    const city = document.getElementById(`city-new`).value;
-    const password = document.getElementById(`password-new`).value;
-
-    const response = await fetch(`/usuario`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name,
-        surname,
-        email,
-        phone,
-        city,
-        password
-      })
-    });
-    const data = await response.json();
-  
-    getUsers();
-  }
-
-
-
-  const deleteUser = async (id) => {
-    const response = await fetch(`/usuario/${id}`, {
-      method: 'DELETE'
-    });
-    const data = await response.json();
-    console.log(data);
-    getUsers();
-  }
-
-  const getUsers = async () => {
-    const response = await fetch('/usuario');
-    const data = await response.json();
-
-
-    users.innerHTML = '';
-    redux.users = data
-    render(data)
-    rendeselectcuty(data)
-  }
-  getUsers()
-
-  const rendeselectcuty = (data) => {
-    const selectcity = document.getElementById('selectcity');
-    selectcity.innerHTML = "";
-    const cleanRepet = data.filter((city, index, self) =>
-      index === self.findIndex((t) => (
-        t.city === city.city
-      ))
-    )
-
-    cleanRepet.forEach(city => {
-      selectcity.innerHTML += /*html*/`
-        <option value="${city.city}">${city.city}</option>
-      `
-    });
-  }
-
-const render = (data )=> {
-  const users = document.getElementById('users');
-  users.innerHTML = ""
-  data.forEach(user => {
-      users.innerHTML += /*html*/`
-        <tr>
-          <td >
-            <input id="id-${user.id}" name="${user.id}"  value="${user.id}" disabled/>
-            </td>
-          <td>
-            <input   id="name-${user.id}" value="${user.name}" name ="${user.name}"/>
-          </td>
-          <td>
-            <input  id="surname-${user.id}" value="${user.surname}" name="${user.surname}"/>
-          </td>
-          <td>
-            <input  id="email-${user.id}" value="${user.email}" name="${user.email}" />  
-          </td>
-          <td>
-            <input  id="phone-${user.id}" value="${user.phone}" name="${user.phone}"/>
-          </td>
-          <td>
-            <input  id="city-${user.id}" value="${user.city}" name="${user.city}"/>
-          </td>
-          <td>
-            <input  id="password-${user.id}" value="${user.password}" name="${user.password}"/>
-          </td>
-          <td>
-            <button onclick="editUser(${user.id})">Editar</button>
-            <button onclick="deleteUser(${user.id})">Eliminar</button>  
-          </td>
-        </tr>
-      `
-    });
-}
-  const editUser = async (id) => {
-    const name = document.getElementById(`name-${id}`).value;
-    const surname = document.getElementById(`surname-${id}`).value;
-    const email = document.getElementById(`email-${id}`).value;
-    const phone = document.getElementById(`phone-${id}`).value;
-    const city = document.getElementById(`city-${id}`).value;
-    const password = document.getElementById(`password-${id}`).value;
-
-    const response = await fetch(`/usuario/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name,
-        surname,
-        email,
-        phone,
-        city,
-        password
-      })
-    });
-    const data = await response.json();
-    getUsers();
-  }
-
-
-</script>
-
 </html>

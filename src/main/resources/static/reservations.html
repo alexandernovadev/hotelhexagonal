@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Reservation</title>
+</head>
+
+<body>
+  <div class="container">
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Reservation</li>
+      </ol>
+    </nav>
+
+
+    <h1>Restvations</h1>
+
+    <div class="row">
+      <div class="col-4">
+        <h4>Do Reservation</h4>
+        <form>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">User</label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Choose User</option>
+              <option value="1">Juan</option>
+              <option value="2">Pepe</option>
+              <option value="3">Paco</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Habitacion</label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Choose Room</option>
+              <option value="1">#245</option>
+              <option value="12">#445</option>
+              <option value="12w">#145</option>
+              <option value="2w">#45</option>
+              <option value="2312w">#s45</option>
+              <option value="22x"><b>#69</b></option>
+      
+            </select>
+          </div>
+          <section class="row">
+            <div class="mb-3 col">
+              <label for="exampleInputPassword1" class="form-label">Check In</label>
+              <input type="date" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3 col">
+              <label for="exampleInputPassword1" class="form-label">CheckOut</label>
+              <input type="date" class="form-control" id="exampleInputPassword1">
+            </div>
+          </section>
+     
+      
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Acepto Terminos</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Reservar</button>
+        </form>
+      </div>
+      <div class="col-8">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Type</th>
+              <th>State</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="rooms">
+          </tbody>
+        </table>
+      </div>
+    </div>
+ 
+  </div>
+
+</body>
+<script>
+
+  function getRooms() {
+    fetch('/api/rooms')
+      .then(response => response.json())
+      .then(rooms => {
+        console.log(rooms);
+        const roomsTable = document.getElementById('rooms');
+        roomsTable.innerHTML = '';
+        rooms.forEach(room => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${room.room_id}</td>
+            <td>${room.type_room_id.state}</td>
+            <td>${room.state_room_id.state}</td>
+            <td>
+              <input class="form-control" type="text" value="${room.name}">
+            </td>
+            <td>
+              <input class="form-control" type="text" value="${room.description}">
+            </td>
+            <td>
+              <button class="btn btn-danger">Remove</button>
+              <button class="btn btn-warning">Edit</button>
+            </td>
+          `;
+          roomsTable.appendChild(row);
+        });
+      });
+  }
+  getRooms();
+</script>
+
+</html>
