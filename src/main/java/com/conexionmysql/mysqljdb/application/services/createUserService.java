@@ -1,25 +1,18 @@
 package com.conexionmysql.mysqljdb.application.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.conexionmysql.mysqljdb.application.ports.in.CreateUserCommand;
-import com.conexionmysql.mysqljdb.application.ports.out.SaveUserPort;
-import com.conexionmysql.mysqljdb.domain.model.User;
+import com.conexionmysql.mysqljdb.infrastructure.jpa.entities.User;
+import com.conexionmysql.mysqljdb.infrastructure.jpa.repositories.UserRepository;
 
-public class createUserService {
-  private SaveUserPort saveUserPort;
-
+@Service
+public class CreateUserService {
   @Autowired
-  public void CreateUserService(SaveUserPort saveUserPort) {
-      this.saveUserPort = saveUserPort;
+  private UserRepository userRepository;
+
+  public void createUser(User user) {
+    userRepository.save(user);
   }
 
-  public User createUser(CreateUserCommand command) {
-      // Aquí puedes agregar validaciones adicionales y lógica de negocio específica para la creación de usuarios.
-
-      User newUser = new User(
-      );
-
-      return saveUserPort.save(newUser);
-  }
 }
