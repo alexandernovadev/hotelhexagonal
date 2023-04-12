@@ -1,4 +1,4 @@
-package com.conexionmysql.mysqljdb.domain.models;
+package com.conexionmysql.mysqljdb.infrastructure.jpa.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
