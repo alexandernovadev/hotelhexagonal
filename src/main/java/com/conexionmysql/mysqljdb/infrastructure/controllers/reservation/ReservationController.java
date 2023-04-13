@@ -22,6 +22,7 @@ import com.conexionmysql.mysqljdb.application.dto.ResponseFormat;
 import com.conexionmysql.mysqljdb.application.dto.ReservationSearchDto;
 import com.conexionmysql.mysqljdb.application.services.reservation.CreateReservationService;
 import com.conexionmysql.mysqljdb.application.services.reservation.SearchReservationService;
+import com.conexionmysql.mysqljdb.application.services.reservationState.SearcReservationStateByIdService;
 import com.conexionmysql.mysqljdb.application.services.room.GetRoomByIdService;
 import com.conexionmysql.mysqljdb.application.services.user.GetUserByIdService;
 import com.conexionmysql.mysqljdb.domain.entities.Reservation;
@@ -45,6 +46,9 @@ public class ReservationController {
   @Autowired
   private GetRoomByIdService getRoomByIdService;
 
+  @Autowired
+  private SearcReservationStateByIdService searcReservationStateByIdService;
+
   @PostMapping
   public ResponseEntity<?> createReservation(@RequestBody @Valid Reservation reservation) {
     log.info("Creating reservation");
@@ -59,9 +63,22 @@ public class ReservationController {
       return new ResponseEntity<>(responseFormat, HttpStatus.NOT_FOUND);
     }
 
+    // Verificar if reservation_state_id existe
+    if (reservation.getReservation_state_id() != null
+        && searcReservationStateByIdService.searchById(reservation.getReservation_state_id().getReservation_state_id()) == null) {
+      ResponseFormat responseFormat = new ResponseFormat(
+          "Oops, no se encontró el estado de la reserva " + reservation.getReservation_state_id().getReservation_state_id(),
+          HttpStatus.NOT_FOUND.value(),
+          LocalDateTime.now());
+      return new ResponseEntity<>(responseFormat, HttpStatus.NOT_FOUND);
+    }
+
+
     // Verificar si la habitación existe, si se proporciona roomId
+    var rooms = getRoomByIdService.getRoomById(reservation.getRoom_id().getRoom_id());
+
     if (reservation.getRoom_id() != null
-        && getRoomByIdService.getRoomById(reservation.getRoom_id().getRoom_id()).isEmpty()) {
+        && rooms.isEmpty()) {
       ResponseFormat responseFormat = new ResponseFormat(
           "Oops, no se encontró la habitación " + reservation.getRoom_id().getRoom_id(),
           HttpStatus.NOT_FOUND.value(),
@@ -69,11 +86,40 @@ public class ReservationController {
       return new ResponseEntity<>(responseFormat, HttpStatus.NOT_FOUND);
     }
 
+    // Si existe la room verificar que este en estado disponible
+    if (reservation.getRoom_id() != null
+        && rooms.get()
+            .getState_room_id().getRooms_state_id() != 1) {
+      ResponseFormat responseFormat = new ResponseFormat(
+          "Oops, la habitación " + reservation.getRoom_id().getRoom_id() + " no está disponible",
+          HttpStatus.BAD_REQUEST.value(),
+          LocalDateTime.now());
+      return new ResponseEntity<>(responseFormat, HttpStatus.BAD_REQUEST);
+    }
+
     // Verificar si las fechas son válidas
     if (reservation.getCheck_in_date() != null && reservation.getCheck_out_date() != null
         && reservation.getCheck_in_date().isAfter(reservation.getCheck_out_date())) {
       ResponseFormat responseFormat = new ResponseFormat(
           "La fecha de check-in debe ser anterior a la fecha de check-out",
+          HttpStatus.BAD_REQUEST.value(),
+          LocalDateTime.now());
+      return new ResponseEntity<>(responseFormat, HttpStatus.BAD_REQUEST);
+    }
+
+    // Validate if user has reservation with the same room and dates
+    ReservationSearchDto reservationSearchDto = new ReservationSearchDto();
+    reservationSearchDto.setUserId(reservation.getUser_id().getUser_id());
+    reservationSearchDto.setRoomId(reservation.getRoom_id().getRoom_id());
+    reservationSearchDto.setReservationStateId(reservation.getReservation_state_id().getReservation_state_id());
+    reservationSearchDto.setCheckInDate(reservation.getCheck_in_date());
+    reservationSearchDto.setCheckOutDate(reservation.getCheck_out_date());
+
+    var reservations = searchReservationService.searchReservations(reservationSearchDto);
+
+    if (!reservations.isEmpty()) {
+      ResponseFormat responseFormat = new ResponseFormat(
+          "El usuario ya tiene una reserva para la habitación en las fechas seleccionadas",
           HttpStatus.BAD_REQUEST.value(),
           LocalDateTime.now());
       return new ResponseEntity<>(responseFormat, HttpStatus.BAD_REQUEST);
