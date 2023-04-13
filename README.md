@@ -17,3 +17,8 @@ Estando en la rama que que cree
 ## Git Flow
 
 <img src="gitfloww.jpeg" />
+
+
+## Hexagonal
+
+<img src="hexagonal.jpeg" />
