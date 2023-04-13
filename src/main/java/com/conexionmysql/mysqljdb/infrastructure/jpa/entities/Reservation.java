@@ -2,6 +2,8 @@ package com.conexionmysql.mysqljdb.infrastructure.jpa.entities;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -39,6 +41,7 @@ public class Reservation {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "reservation_state_id")
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   private ReservationState reservation_state_id;
 
   @Column(name = "check_in_date")

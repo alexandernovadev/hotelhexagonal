@@ -38,15 +38,14 @@ public class ReservationController {
     createReservationService.createReservation(reservation);
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
-  // Get reservations filtered by date, id, etc
 
   @GetMapping
   public ResponseEntity<List<Reservation>> searchReservations(
-      @RequestParam(value = "userId", required = false) Long userId,
-      @RequestParam(value = "roomId", required = false) Long roomId,
-      @RequestParam(value = "reservationStateId", required = false) Long reservationStateId,
-      @RequestParam(value = "checkInDate", required = false) LocalDate checkInDate,
-      @RequestParam(value = "checkOutDate", required = false) LocalDate checkOutDate) {
+    @RequestParam(value = "user_id", required = false) Long userId,
+    @RequestParam(value = "room_id", required = false) Long roomId,
+    @RequestParam(value = "reservation_state_id", required = false) Long reservationStateId,
+    @RequestParam(value = "check_in_date", required = false) LocalDate checkInDate,
+    @RequestParam(value = "check_out_date", required = false) LocalDate checkOutDate) {
 
     log.info("Searching reservations with filters");
 
