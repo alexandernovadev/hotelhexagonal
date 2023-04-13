@@ -1,5 +1,7 @@
 package com.conexionmysql.mysqljdb.application.ports.in;
 
-public class CreateReservationUseCase {
-  
+import com.conexionmysql.mysqljdb.application.dto.ReservationCreateDto;
+
+public interface CreateReservationUseCase {
+  void createReservation(ReservationCreateDto reservationCreateDto);
 }
