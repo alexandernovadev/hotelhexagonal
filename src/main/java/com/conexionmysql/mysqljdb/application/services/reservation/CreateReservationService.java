@@ -5,7 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.conexionmysql.mysqljdb.infrastructure.jpa.entities.Reservation;
+import com.conexionmysql.mysqljdb.domain.entities.Reservation;
 import com.conexionmysql.mysqljdb.infrastructure.jpa.repositories.ReservationRepository;
 
 @Service

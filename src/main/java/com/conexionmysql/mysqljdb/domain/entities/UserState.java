@@ -1,4 +1,4 @@
-package com.conexionmysql.mysqljdb.infrastructure.jpa.entities;
+package com.conexionmysql.mysqljdb.domain.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,15 +10,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Entity
-@Table(name = "rooms_state")
+@Table(name = "users_state")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class RoomState {
+public class UserState {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long rooms_state_id; 
+  private Long user_state_id; 
   private String state;
 }

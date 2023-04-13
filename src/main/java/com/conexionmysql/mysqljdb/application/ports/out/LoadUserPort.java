@@ -2,7 +2,7 @@ package com.conexionmysql.mysqljdb.application.ports.out;
 
 import java.util.Optional;
 
-import com.conexionmysql.mysqljdb.infrastructure.jpa.entities.User;
+import com.conexionmysql.mysqljdb.domain.entities.User;
 
 
 public interface LoadUserPort {

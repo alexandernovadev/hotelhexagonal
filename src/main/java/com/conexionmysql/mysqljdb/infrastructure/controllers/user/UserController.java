@@ -1,4 +1,4 @@
-package com.conexionmysql.mysqljdb.infrastructure.controllers;
+package com.conexionmysql.mysqljdb.infrastructure.controllers.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.conexionmysql.mysqljdb.application.services.user.CreateUserService;
 import com.conexionmysql.mysqljdb.application.services.user.GetAllUserService;
 import com.conexionmysql.mysqljdb.application.services.user.UpdateUserService;
-import com.conexionmysql.mysqljdb.infrastructure.jpa.entities.User;
+import com.conexionmysql.mysqljdb.domain.entities.User;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -2,7 +2,7 @@ package com.conexionmysql.mysqljdb.infrastructure.jpa.repositories;
 
 import org.springframework.stereotype.Repository;
 
-import com.conexionmysql.mysqljdb.infrastructure.jpa.entities.Reservation;
+import com.conexionmysql.mysqljdb.domain.entities.Reservation;
 
 import java.time.LocalDateTime;
 import java.util.List;
