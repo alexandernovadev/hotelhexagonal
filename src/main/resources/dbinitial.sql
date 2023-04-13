@@ -73,3 +73,8 @@ CREATE TABLE sales (
   FOREIGN KEY (reservation_id) REFERENCES reservations(reservation_id),
   FOREIGN KEY (sales_state_id) REFERENCES sales_state(sales_state_id)
 );
+
+
+# Add columns reservations
+ALTER TABLE reservations ADD check_in_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE reservations ADD check_out_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;

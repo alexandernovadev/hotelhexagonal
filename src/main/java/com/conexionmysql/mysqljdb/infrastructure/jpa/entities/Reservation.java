@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.NoArgsConstructor;
 
 
@@ -26,23 +27,26 @@ public class Reservation {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "reservation_id")
-  private Long id;
+  private Long reservation_id;
 
-  @Column(name = "user_id")
-  private Long userId;
+  @OneToOne
+  @JoinColumn(name = "user_id")
+  private User user_id;
 
-  @Column(name = "room_id")
-  private Long roomId;
+  @OneToOne
+  @JoinColumn(name = "room_id")
+  private Room room_id;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "reservation_state_id")
-  private ReservationState state;
+  private ReservationState reservation_state_id;
 
   @Column(name = "check_in_date")
   private LocalDate checkInDate;
 
   @Column(name = "check_out_date")
   private LocalDate checkOutDate;
+  
 }
 
 

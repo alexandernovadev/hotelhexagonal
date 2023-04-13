@@ -20,7 +20,7 @@ public class ReservationState {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservation_state_id")
-    private Long id;
+    private Long reservation_state_id;
 
     @Column(name = "state")
     private String state;

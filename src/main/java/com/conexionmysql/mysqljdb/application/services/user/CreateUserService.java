@@ -1,4 +1,4 @@
-package com.conexionmysql.mysqljdb.application.services;
+package com.conexionmysql.mysqljdb.application.services.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
