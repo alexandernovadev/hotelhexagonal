@@ -16,8 +16,12 @@ import com.hotels.mart.application.dto.ReservationSearchDto;
 import com.hotels.mart.application.dto.ResponseFormat;
 import com.hotels.mart.application.services.reservationState.SearcReservationStateByIdService;
 import com.hotels.mart.application.services.room.GetRoomByIdService;
+import com.hotels.mart.application.services.room.SearchRoomStateByIdService;
+import com.hotels.mart.application.services.room.UpdateRoomService;
 import com.hotels.mart.application.services.user.GetUserByIdService;
 import com.hotels.mart.domain.entities.Reservation;
+import com.hotels.mart.domain.entities.Room;
+import com.hotels.mart.domain.entities.RoomState;
 import com.hotels.mart.infrastructure.jpa.repositories.ReservationRepository;
 
 @Service
@@ -36,7 +40,12 @@ public class CreateReservationService {
   private GetRoomByIdService getRoomByIdService;
 
   @Autowired
+  private UpdateRoomService updateRoomService;
+
+  @Autowired
   private SearcReservationStateByIdService searcReservationStateByIdService;
+  @Autowired
+  private SearchRoomStateByIdService searchRoomStateByIdService;
 
   public ResponseFormat createReservation(@Valid ReservationCreateDto reservation) {
 
@@ -45,14 +54,14 @@ public class CreateReservationService {
 
     // VALIDATE IF reservation.getCheck_in_date() has a valid date format
     try {
-        checkInDate = LocalDateTime.parse(reservation.getCheck_in_date());
-        checkOutDate = LocalDateTime.parse(reservation.getCheck_out_date());
+      checkInDate = LocalDateTime.parse(reservation.getCheck_in_date());
+      checkOutDate = LocalDateTime.parse(reservation.getCheck_out_date());
     } catch (DateTimeParseException e) {
-        ResponseFormat responseFormat = new ResponseFormat(
-            "Error: La fecha de check-in o check-out tiene un formato inválido. \n Format Valid: (yyyy-mm-dd 00:00:00)",
-            HttpStatus.BAD_REQUEST.value(),
-            LocalDateTime.now());
-        return responseFormat;
+      ResponseFormat responseFormat = new ResponseFormat(
+          "Error: La fecha de check-in o check-out tiene un formato inválido. \n Format Valid: (yyyy-mm-dd 00:00:00)",
+          HttpStatus.BAD_REQUEST.value(),
+          LocalDateTime.now());
+      return responseFormat;
     }
 
     // Verificar si el usuario existe, si se proporciona userId
@@ -65,6 +74,7 @@ public class CreateReservationService {
           LocalDateTime.now());
       return responseFormat;
     }
+    // TODO: Verificar si el usuario tiene permisos para reservar
 
     // Verificar if reservation_state_id existe
     if (reservation.getReservation_state_id() != null
@@ -78,8 +88,28 @@ public class CreateReservationService {
       return responseFormat;
     }
 
-    // Verificar si la habitación existe, si se proporciona roomId
     var rooms = getRoomByIdService.getRoomById(reservation.getRoom_id().getRoom_id());
+
+
+    // Validate if user has reservation with the same room and dates
+    ReservationSearchDto reservationSearchDto = new ReservationSearchDto();
+    reservationSearchDto.setUserId(reservation.getUser_id().getUser_id());
+    reservationSearchDto.setRoomId(reservation.getRoom_id().getRoom_id());
+    reservationSearchDto.setReservationStateId(reservation.getReservation_state_id().getReservation_state_id());
+    reservationSearchDto.setCheckInDate(checkInDate);
+    reservationSearchDto.setCheckOutDate(checkOutDate);
+
+    var reservations = searchReservationService.searchReservations(reservationSearchDto);
+
+    if (!reservations.isEmpty()) {
+      ResponseFormat responseFormat = new ResponseFormat(
+          "El usuario ya tiene una reserva para la habitación "+ rooms.get().getName() + " !",
+          HttpStatus.BAD_REQUEST.value(),
+          LocalDateTime.now());
+      return responseFormat;
+    }
+
+    // Verificar si la habitación existe, si se proporciona roomId
 
     if (reservation.getRoom_id() != null
         && rooms.isEmpty()) {
@@ -111,43 +141,36 @@ public class CreateReservationService {
       return responseFormat;
     }
 
-    // Validate if user has reservation with the same room and dates
-    ReservationSearchDto reservationSearchDto = new ReservationSearchDto();
-    reservationSearchDto.setUserId(reservation.getUser_id().getUser_id());
-    reservationSearchDto.setRoomId(reservation.getRoom_id().getRoom_id());
-    reservationSearchDto.setReservationStateId(reservation.getReservation_state_id().getReservation_state_id());
-    reservationSearchDto.setCheckInDate(checkInDate);
-    reservationSearchDto.setCheckOutDate(checkOutDate);
-
-    var reservations = searchReservationService.searchReservations(reservationSearchDto);
-
-    if (!reservations.isEmpty()) {
-      ResponseFormat responseFormat = new ResponseFormat(
-          "El usuario ya tiene una reserva para la habitación en las fechas seleccionadas",
-          HttpStatus.BAD_REQUEST.value(),
-          LocalDateTime.now());
-      return responseFormat;
-    }
-
     // Save reservation
-    Reservation r =  new Reservation();
+    Reservation r = new Reservation();
     r.setCheck_in_date(checkInDate);
     r.setCheck_out_date(checkOutDate);
     r.setReservation_state_id(reservation.getReservation_state_id());
     r.setRoom_id(reservation.getRoom_id());
     r.setUser_id(reservation.getUser_id());
-    
-
 
     reservationRepository.save(r);
+
+    // Si la reservation se crea con éxito, cambiar el estado de la habitación a
+    // reservada
+    var reservedState = searchRoomStateByIdService.getRoomState(5L);
+
+    Room newroom = new Room();
+    newroom.setRoom_id(rooms.get().getRoom_id());
+    newroom.setName(rooms.get().getName());
+    newroom.setDescription(rooms.get().getDescription());
+    newroom.setType_room_id(rooms.get().getType_room_id());
+    newroom.setState_room_id(reservedState);
+
+    updateRoomService.updateRoom(newroom);
+
     ResponseFormat Response = new ResponseFormat(
         "El user " + user.getName() + "  ha reservado la habitación  "
-            + rooms.get().getName() ,
+            + rooms.get().getName(),
         HttpStatus.IM_USED.value(),
         LocalDateTime.now());
 
     return Response;
-
   }
 
 }
