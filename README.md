@@ -16,4 +16,4 @@ Estando en la rama que que cree
 
 ## Git Flow
 
-<img scr="./gitfloww.jpeg" width="200px "/>
+<img scr="gitfloww.jpeg" width="200px "/>
