@@ -1,0 +1,44 @@
+// Reserva add
+{
+  "user_id": {
+      "user_id": "11"
+  },
+  "room_id": {
+      "room_id": "2"
+  },
+  "reservation_state_id": {
+      "reservation_state_id": "1"
+  },
+  "check_in_date":"2021-05-01 00:52:42",
+  "check_out_date":"2021-05-01 00:52:42"
+}
+
+
+
+
+
+
+// Create user
+
+{
+  "user_type": "admin",
+  "user_state_id": {
+      "user_state_id": "2"
+  },
+  "name": "Nomnam",
+  "email": "niasd@minnasdloas.com",
+  "password": "jdsfpsdestoroa"
+}
+
+// Create room
+
+{
+  "room_type_id": {
+      "room_type_id": "1"
+  },
+  "room_state_id": {
+      "room_state_id": "1"
+  },
+  "room_number": "1",
+  "price": "1000"
+}

@@ -1,6 +1,6 @@
 package com.conexionmysql.mysqljdb.application.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 import lombok.Getter;
@@ -14,6 +14,6 @@ public class ReservationSearchDto {
   private Long userId;
   private Long roomId;
   private Long reservationStateId;
-  private LocalDate checkInDate;
-  private LocalDate checkOutDate;
+  private LocalDateTime checkInDate;
+  private LocalDateTime checkOutDate;
 }

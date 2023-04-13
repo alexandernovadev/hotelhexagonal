@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.conexionmysql.mysqljdb.infrastructure.jpa.entities.Reservation;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,8 +22,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
        List<Reservation> findByCriteria(@Param("userId") Long userId,
                      @Param("roomId") Long roomId,
                      @Param("reservationStateId") Long reservationStateId,
-                     @Param("checkInDate") LocalDate checkInDate,
-                     @Param("checkOutDate") LocalDate checkOutDate);
+                     @Param("checkInDate") LocalDateTime checkInDate,
+                     @Param("checkOutDate") LocalDateTime checkOutDate);
 
 }
 // @Query("SELECT r FROM Reservation r " +

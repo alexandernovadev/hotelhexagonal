@@ -1,5 +1,7 @@
 package com.conexionmysql.mysqljdb.application.services.reservation;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,8 @@ public class CreateReservationService {
   @Autowired
   private ReservationRepository reservationRepository;
 
-  public void createReservation(Reservation reservation) {
-    reservationRepository.save(reservation);
+  public void createReservation(@Valid Reservation reservationCreateDto) {
+    reservationRepository.save(reservationCreateDto);
   }
 
 }
