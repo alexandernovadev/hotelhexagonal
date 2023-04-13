@@ -17,8 +17,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
                      "WHERE (:userId is null or r.user_id.id = :userId) " +
                      "AND (:roomId is null or r.room_id.id = :roomId) " +
                      "AND (:reservationStateId is null or r.reservation_state_id.id = :reservationStateId) " +
-                     "AND (:checkInDate is null or r.checkInDate >= :checkInDate) " +
-                     "AND (:checkOutDate is null or r.checkOutDate >= :checkOutDate)")
+                     "AND (:checkInDate is null or r.check_in_date >= :checkInDate) " +
+                     "AND (:checkOutDate is null or r.check_out_date >= :checkOutDate)")
        List<Reservation> findByCriteria(@Param("userId") Long userId,
                      @Param("roomId") Long roomId,
                      @Param("reservationStateId") Long reservationStateId,

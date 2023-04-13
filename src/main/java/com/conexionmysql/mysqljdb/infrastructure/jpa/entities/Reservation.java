@@ -1,7 +1,10 @@
 package com.conexionmysql.mysqljdb.infrastructure.jpa.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -18,7 +21,6 @@ import lombok.Data;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @NoArgsConstructor
@@ -41,15 +43,17 @@ public class Reservation {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "reservation_state_id")
-  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
   private ReservationState reservation_state_id;
 
+  @NotNull(message = "Check-in date is required")
   @Column(name = "check_in_date")
-  private LocalDate checkInDate;
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  private LocalDateTime check_in_date;
 
+  @NotNull(message = "Check-out date is required")
   @Column(name = "check_out_date")
-  private LocalDate checkOutDate;
-  
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  private LocalDateTime check_out_date;
+
 }
-
-
