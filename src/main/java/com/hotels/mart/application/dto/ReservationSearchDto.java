@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 public class ReservationSearchDto {
   
+  private Long reservationId;
   private Long userId;
   private Long roomId;
   private Long reservationStateId;

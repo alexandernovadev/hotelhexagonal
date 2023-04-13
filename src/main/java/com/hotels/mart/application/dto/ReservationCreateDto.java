@@ -2,13 +2,15 @@ package com.hotels.mart.application.dto;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import com.hotels.mart.domain.entities.ReservationState;
+import com.hotels.mart.domain.entities.Room;
+import com.hotels.mart.domain.entities.User;
 
 @Data
 public class ReservationCreateDto {
-    private Long user_id;
-    private Long room_id;
-    private Long reservation_state_id;
-    private LocalDateTime check_in_date;
-    private LocalDateTime check_out_date;
+    private User user_id;
+    private Room room_id;
+    private ReservationState reservation_state_id;
+    private String check_in_date;
+    private String check_out_date;
 }
