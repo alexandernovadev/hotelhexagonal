@@ -21,4 +21,4 @@ Estando en la rama que que cree
 
 ## Hexagonal
 
-<img src="hexagonal.jpeg" />
+<img src="hexagonal.png" />
