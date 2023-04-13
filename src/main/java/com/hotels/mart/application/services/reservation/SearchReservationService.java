@@ -17,6 +17,7 @@ public class SearchReservationService {
  
 public List<Reservation> searchReservations(ReservationSearchDto reservationCreateDto) {
   return reservationRepository.findByCriteria(
+      reservationCreateDto.getReservationId(),
       reservationCreateDto.getUserId(),
       reservationCreateDto.getRoomId(),
       reservationCreateDto.getReservationStateId(),

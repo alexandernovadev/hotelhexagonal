@@ -61,6 +61,7 @@ public class ReservationController {
 
   @GetMapping
   public ResponseEntity<Object> searchReservations(
+      @RequestParam(value = "reservation_id", required = false) Long reservation_id,
       @RequestParam(value = "user_id", required = false) Long userId,
       @RequestParam(value = "room_id", required = false) Long roomId,
       @RequestParam(value = "reservation_state_id", required = false) Long reservationStateId,
@@ -122,6 +123,7 @@ public class ReservationController {
     }
 
     ReservationSearchDto reservationSearchDto = new ReservationSearchDto();
+    reservationSearchDto.setReservationId(reservation_id);
     reservationSearchDto.setUserId(userId);
     reservationSearchDto.setRoomId(roomId);
     reservationSearchDto.setReservationStateId(reservationStateId);
