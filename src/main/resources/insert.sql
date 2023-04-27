@@ -59,43 +59,14 @@ INSERT INTO reservations_state (state) VALUES
 ('Cancelled'),
 ('No Show');
 
-INSERT INTO reservations (user_id, room_id, reservation_state_id) VALUES
-(2, 2, 1),
-(3, 4, 1),
-(2, 8, 1),
-(5, 9, 1),
-(4, 10, 1),
-(3, 1, 1),
-(6, 2, 1),
-(7, 3, 1),
-(8, 4, 1),
-(9, 5, 1),
-(10, 6, 1);
 
+--- 23 ABRIL 2023
 
-INSERT INTO sales_state (state) VALUES
-('Pending'),
-('Paid'),
-('Refunded'),
-('Cancelled');
+INSERT INTO payment_methods (method_name) VALUES ('Credit Card');
+INSERT INTO payment_methods (method_name) VALUES ('Debit Card');
+INSERT INTO payment_methods (method_name) VALUES ('PayPal');
+INSERT INTO payment_methods (method_name) VALUES ('Cash');
+INSERT INTO payment_methods (method_name) VALUES ('Bank Transfer');
 
-
-
-INSERT INTO sales (user_id, reservation_id, sales_state_id) VALUES
-(2, 1, 2),
-(3, 2, 2),
-(4, 3, 2),
-(5, 4, 2),
-(6, 5, 2),
-(7, 6, 2),
-(8, 7, 2),
-(9, 8, 2),
-(10, 9, 2),
-(2, 10, 2),
-(3, 11, 2),
-(4, 12, 2),
-(5, 13, 2),
-(6, 14, 2),
-(7, 15, 2);
 
 
