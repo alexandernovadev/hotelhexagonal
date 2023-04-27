@@ -8,6 +8,7 @@ public class MysqljdbApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MysqljdbApplication.class, args);
+		
 	}
 
 }
