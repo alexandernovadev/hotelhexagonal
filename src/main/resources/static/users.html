@@ -112,7 +112,7 @@
       password: document.getElementById(id + '-password').value
     }
 
-    fetch('/api/users/' + id, {
+    fetch('/api/users/', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -138,9 +138,11 @@
         usersTable.innerHTML = '';
         users.forEach(user => {
           const row = document.createElement('tr');
+
+          console.log("que pas con el ID" , user.user_id);
           row.innerHTML = `
             <td>
-              <input id="${user.user_id}-id" class="form-control" type="text" value="${user.user_id}">
+              <input id="${user.user_id}-id" class="form-control" style="width:120%;" type="text" value="${user.user_id}">
             </td>
             <td>
               <input id="${user.user_id}-user_type" class="form-control" type="text" value="${user.user_type}">

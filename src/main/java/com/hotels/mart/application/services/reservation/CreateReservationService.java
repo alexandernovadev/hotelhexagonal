@@ -1,6 +1,5 @@
 package com.hotels.mart.application.services.reservation;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -8,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.hotels.mart.application.dto.ReservationCreateDto;
@@ -21,7 +19,6 @@ import com.hotels.mart.application.services.room.UpdateRoomService;
 import com.hotels.mart.application.services.user.GetUserByIdService;
 import com.hotels.mart.domain.entities.Reservation;
 import com.hotels.mart.domain.entities.Room;
-import com.hotels.mart.domain.entities.RoomState;
 import com.hotels.mart.infrastructure.jpa.repositories.ReservationRepository;
 
 @Service

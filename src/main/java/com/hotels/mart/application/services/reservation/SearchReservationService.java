@@ -14,21 +14,15 @@ public class SearchReservationService {
   @Autowired
   private ReservationRepository reservationRepository;
 
-  
+  public List<Reservation> searchReservations(ReservationSearchDto reservationCreateDto) {
 
-public List<Reservation> searchReservations(ReservationSearchDto reservationCreateDto) {
+    return reservationRepository.findByCriteria(
+        reservationCreateDto.getReservationId(),
+        reservationCreateDto.getUserId(),
+        reservationCreateDto.getRoomId(),
+        reservationCreateDto.getReservationStateId(),
+        reservationCreateDto.getCheckInDate(),
+        reservationCreateDto.getCheckOutDate());
 
-  return reservationRepository.findByCriteria(
-      reservationCreateDto.getReservationId(),
-      reservationCreateDto.getUserId(),
-    
-      reservationCreateDto.getRoomId(),
-      reservationCreateDto.getReservationStateId(),
-
-      reservationCreateDto.getCheckInDate(),
-
-      reservationCreateDto.getCheckOutDate());
-
-
-}
+  }
 }

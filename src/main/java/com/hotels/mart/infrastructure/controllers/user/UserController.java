@@ -1,17 +1,22 @@
 package com.hotels.mart.infrastructure.controllers.user;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hotels.mart.application.dto.ResponseFormat;
 import com.hotels.mart.application.services.user.CreateUserService;
+import com.hotels.mart.application.services.user.DeleteUserService;
 import com.hotels.mart.application.services.user.GetAllUserService;
 import com.hotels.mart.application.services.user.UpdateUserService;
 import com.hotels.mart.domain.entities.User;
@@ -29,7 +34,9 @@ public class UserController {
    private GetAllUserService getAllUserService;
    @Autowired
    private UpdateUserService updateUserService;
-   
+
+   @Autowired
+   private DeleteUserService deleteUserService;
 
    @GetMapping
    public ResponseEntity<?> getUsers() {
@@ -40,21 +47,43 @@ public class UserController {
    @PostMapping
    public ResponseEntity<?> createUser(@RequestBody User userDto) {
       log.info("Creating user: {}", userDto);
+
       createUserService.createUser(userDto);
-      return new ResponseEntity<>(HttpStatus.CREATED);
+
+      ResponseFormat response = new ResponseFormat();
+      response.setMessage("User created successfully");
+      response.setStatus(HttpStatus.CREATED.value());
+      response.setTimestamp(LocalDateTime.now());
+
+      return new ResponseEntity<>(response, HttpStatus.CREATED);
    }
 
    @PutMapping
    public ResponseEntity<?> updateUser(@RequestBody User userDto) {
       log.info("Updating user: {}", userDto);
       updateUserService.updateUser(userDto);
-      return new ResponseEntity<>(HttpStatus.CREATED);
+
+      ResponseFormat response = new ResponseFormat();
+      response.setMessage("User Updated successfully");
+      response.setStatus(HttpStatus.CREATED.value());
+      response.setTimestamp(LocalDateTime.now());
+
+      return new ResponseEntity<>(response, HttpStatus.CREATED);
+
    }
 
-   @DeleteMapping
-   public ResponseEntity<?> deleteUser(@RequestBody User userDto) {
-      log.info("Deleting user: {}", userDto);
-      createUserService.createUser(userDto);
-      return new ResponseEntity<>(HttpStatus.CREATED);
+   @DeleteMapping("/{id}")
+   public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+      log.info("Deleting user with ID: {}", id);
+      deleteUserService.deleteUser(id);
+
+      ResponseFormat response = new ResponseFormat();
+      response.setMessage("User Deleted successfully");
+      response.setStatus(HttpStatus.CREATED.value());
+      response.setTimestamp(LocalDateTime.now());
+
+      return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+
    }
+
 }
