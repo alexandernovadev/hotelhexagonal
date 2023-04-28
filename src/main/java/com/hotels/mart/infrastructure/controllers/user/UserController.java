@@ -18,6 +18,7 @@ import com.hotels.mart.application.dto.ResponseFormat;
 import com.hotels.mart.application.services.user.CreateUserService;
 import com.hotels.mart.application.services.user.DeleteUserService;
 import com.hotels.mart.application.services.user.GetAllUserService;
+import com.hotels.mart.application.services.user.GetUserByIdService;
 import com.hotels.mart.application.services.user.UpdateUserService;
 import com.hotels.mart.domain.entities.User;
 
@@ -34,9 +35,17 @@ public class UserController {
    private GetAllUserService getAllUserService;
    @Autowired
    private UpdateUserService updateUserService;
-
    @Autowired
    private DeleteUserService deleteUserService;
+
+   @Autowired
+   private GetUserByIdService getUserByIdService;
+
+   @GetMapping("/{id}")
+   public ResponseEntity<?> getUserById(@PathVariable Long id) {
+      log.info("Getting user with ID: {}", id);
+      return new ResponseEntity<>(getUserByIdService.getUserById(id), HttpStatus.OK);
+   }
 
    @GetMapping
    public ResponseEntity<?> getUsers() {

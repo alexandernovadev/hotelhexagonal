@@ -121,7 +121,7 @@ public class ReservationController {
           LocalDateTime.now());
       return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
-//prueba daniel
+    // prueba daniel
     ReservationSearchDto reservationSearchDto = new ReservationSearchDto();
     reservationSearchDto.setReservationId(reservation_id);
     reservationSearchDto.setUserId(userId);
@@ -131,8 +131,7 @@ public class ReservationController {
     reservationSearchDto.setCheckOutDate(checkOutDate);
 
     List<Reservation> reservations = searchReservationService.searchReservations(reservationSearchDto);
-    
-    
+
     return new ResponseEntity<>(reservations, HttpStatus.OK);
 
   }
