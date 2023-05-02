@@ -1,6 +1,7 @@
 package com.hotels.mart.application.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,4 +22,12 @@ public class ResponseFormat {
     private String message;
     private int status;
     private LocalDateTime timestamp;
+    private List<?> data;
+
+    public ResponseFormat(String message, int status, LocalDateTime timestamp) {
+        this.message = message;
+        this.status = status;
+        this.timestamp = timestamp;
+        this.data = null; // data se asigna a 'null' por defecto
+    }
 }

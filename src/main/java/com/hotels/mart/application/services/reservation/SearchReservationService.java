@@ -91,7 +91,7 @@ public class SearchReservationService {
     reservationSearchDto.setCheckInDate(checkInDate);
     reservationSearchDto.setCheckOutDate(checkOutDate);
 
-    reservationRepository.findByCriteria(
+    List<Reservation> data = reservationRepository.findByCriteria(
         reservationSearchDto.getReservationId(),
         reservationSearchDto.getUserId(),
         reservationSearchDto.getRoomId(),
@@ -102,7 +102,9 @@ public class SearchReservationService {
     ResponseFormat responseFormat = new ResponseFormat(
         "Datos filtrados",
         HttpStatus.ACCEPTED.value(),
-        LocalDateTime.now());
+        LocalDateTime.now(),
+        data);
+        
     return responseFormat;
 
   }
