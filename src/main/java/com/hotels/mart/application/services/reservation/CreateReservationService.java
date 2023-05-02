@@ -96,7 +96,7 @@ public class CreateReservationService {
     reservationSearchDto.setCheckInDate(checkInDate);
     reservationSearchDto.setCheckOutDate(checkOutDate);
 
-    var reservations = searchReservationService.searchReservations(reservationSearchDto);
+    var reservations = searchReservationService.searchReservationeasy(reservationSearchDto);
 
     if (!reservations.isEmpty()) {
       ResponseFormat responseFormat = new ResponseFormat(
