@@ -162,7 +162,7 @@ public class CreateReservationService {
     updateRoomService.updateRoom(newroom);
 
     ResponseFormat Response = new ResponseFormat(
-        "El user " + user.getName() + "  ha reservado la habitación  "
+        "El user " + user.get().getName() + "  ha reservado la habitación  "
             + rooms.get().getName(),
         HttpStatus.IM_USED.value(),
         LocalDateTime.now());
