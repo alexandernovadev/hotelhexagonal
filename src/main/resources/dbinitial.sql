@@ -105,6 +105,6 @@ CREATE TABLE traceability (
   id INT NOT NULL AUTO_INCREMENT,
   user VARCHAR(100) NOT NULL,
   eventname VARCHAR(100) NOT NULL,
-  dateNow DATE NOT NULL,
+  datenow DATE NOT NULL,
   PRIMARY KEY (id)
 );

@@ -1,6 +1,9 @@
 package com.hotels.mart.domain.entities;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,13 +25,16 @@ import lombok.Setter;
 public class Traceability {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-  @Column(name = "user")
-  private String user;
+  @Column(name = "username")
+  private String username;
 
   @Column(name = "eventname")
-  private String eventName;
+  private String eventname;
 
-  @Column(name = "dateNow")
-  private Date dateNow;
+  @Column(name = "datenow")
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  private LocalDateTime datenow;
+
 }
