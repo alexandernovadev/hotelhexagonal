@@ -29,7 +29,7 @@ public class TraceabilityController {
 
     log.info("Save GotraceabilityService");
 
-    gotraceabilityService.saveAuditory(traceabilitydto, false);
+    gotraceabilityService.saveAuditory(traceabilitydto);
 
     ResponseFormat response = new ResponseFormat();
     response.setMessage("Traceability successfully");

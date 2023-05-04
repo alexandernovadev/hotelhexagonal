@@ -12,16 +12,9 @@ public class GotraceabilityService {
   @Autowired
   private TraceabilityRepository traceabilityRepository;
 
-  public void saveAuditory(Traceability traceability, Boolean isFileSave) {
+  public void saveAuditory(Traceability traceability) {
 
-    if (isFileSave) {
-      // Aqui servicio de file data
-
-      
-    } else {
-
-      traceabilityRepository.save(traceability);
-    }
-
+    traceabilityRepository.save(traceability);
   }
+
 }
