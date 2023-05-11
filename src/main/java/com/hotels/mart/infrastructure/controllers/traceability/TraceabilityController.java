@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hotels.mart.application.dto.ResponseFormat;
 import com.hotels.mart.application.services.traceability.GotraceabilityService;
+import com.hotels.mart.application.strategies.PrintPdfStrategy;
+import com.hotels.mart.application.strategies.SaveToDatabaseStrategy;
 import com.hotels.mart.domain.entities.Traceability;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,10 +26,23 @@ public class TraceabilityController {
   @Autowired
   private GotraceabilityService gotraceabilityService;
 
+  @Autowired
+  private SaveToDatabaseStrategy saveToDatabaseStrategy;
+
+  @Autowired
+  private PrintPdfStrategy printPdfStrategy;
+
   @PostMapping
   public ResponseEntity<?> saveTrazaliobite(@RequestBody Traceability traceabilitydto) {
 
     log.info("Save GotraceabilityService");
+    
+    // Selecciona la estrategia adecuada según las necesidades del negocio
+    gotraceabilityService.setTraceabilityStrategy(saveToDatabaseStrategy);
+    // O usa la siguiente línea en lugar de la anterior para cambiar a
+
+    // PrintPdfStrategy
+    // gotraceabilityService.setTraceabilityStrategy(printPdfStrategy);
 
     gotraceabilityService.saveAuditory(traceabilitydto);
 
