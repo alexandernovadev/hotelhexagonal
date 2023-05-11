@@ -38,11 +38,14 @@ CREATE TABLE users (
   FOREIGN KEY (user_state_id) REFERENCES users_state(user_state_id)
 );
 
+
+
 CREATE TABLE reservations_state (
   reservation_state_id INT NOT NULL AUTO_INCREMENT,
   state VARCHAR(50) NOT NULL,
   PRIMARY KEY (reservation_state_id)
 );
+
 
 CREATE TABLE reservations (
   reservation_id INT NOT NULL AUTO_INCREMENT,
@@ -74,7 +77,32 @@ CREATE TABLE sales (
   FOREIGN KEY (sales_state_id) REFERENCES sales_state(sales_state_id)
 );
 
+-- -----------------------------------------------------------------------
+--  =====================  23 Abril 2023 =====================
 
-# Add columns reservations
-ALTER TABLE reservations ADD check_in_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE reservations ADD check_out_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
+-- Add notes column to reservations table 
+ALTER TABLE reservations ADD notes VARCHAR(500) NOT NULL DEFAULT 'Without observations';
+
+
+-- Create payment_methods table 
+CREATE TABLE payment_methods (
+  payment_method_id INT NOT NULL AUTO_INCREMENT,
+  method_name VARCHAR(100) NOT NULL,
+  PRIMARY KEY (payment_method_id)
+);
+
+-- Add payment_method_id column to sales table
+ALTER TABLE sales ADD payment_method_id INT;
+
+-- Add foreign key to payment_method_id column
+ALTER TABLE sales
+  ADD FOREIGN KEY (payment_method_id) REFERENCES payment_methods(payment_method_id);
+
+
+CREATE TABLE traceability (
+  id INT NOT NULL AUTO_INCREMENT,
+  user VARCHAR(100) NOT NULL,
+  eventname VARCHAR(100) NOT NULL,
+  datenow DATE NOT NULL,
+  PRIMARY KEY (id)
+);

@@ -1,6 +1,5 @@
 package com.hotels.mart.application.services.reservation;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -8,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.hotels.mart.application.dto.ReservationCreateDto;
@@ -18,10 +16,13 @@ import com.hotels.mart.application.services.reservationState.SearcReservationSta
 import com.hotels.mart.application.services.room.GetRoomByIdService;
 import com.hotels.mart.application.services.room.SearchRoomStateByIdService;
 import com.hotels.mart.application.services.room.UpdateRoomService;
+import com.hotels.mart.application.services.traceability.GotraceabilityService;
 import com.hotels.mart.application.services.user.GetUserByIdService;
+import com.hotels.mart.application.strategies.PrintPdfStrategy;
+import com.hotels.mart.application.strategies.SaveToDatabaseStrategy;
 import com.hotels.mart.domain.entities.Reservation;
 import com.hotels.mart.domain.entities.Room;
-import com.hotels.mart.domain.entities.RoomState;
+import com.hotels.mart.domain.entities.Traceability;
 import com.hotels.mart.infrastructure.jpa.repositories.ReservationRepository;
 
 @Service
@@ -46,6 +47,16 @@ public class CreateReservationService {
   private SearcReservationStateByIdService searcReservationStateByIdService;
   @Autowired
   private SearchRoomStateByIdService searchRoomStateByIdService;
+
+  // Here trace
+  @Autowired
+  private GotraceabilityService gotraceabilityService;
+
+  @Autowired
+  private SaveToDatabaseStrategy saveToDatabaseStrategy;
+
+  @Autowired
+  private PrintPdfStrategy printPdfStrategy;
 
   public ResponseFormat createReservation(@Valid ReservationCreateDto reservation) {
 
@@ -90,7 +101,6 @@ public class CreateReservationService {
 
     var rooms = getRoomByIdService.getRoomById(reservation.getRoom_id().getRoom_id());
 
-
     // Validate if user has reservation with the same room and dates
     ReservationSearchDto reservationSearchDto = new ReservationSearchDto();
     reservationSearchDto.setUserId(reservation.getUser_id().getUser_id());
@@ -99,11 +109,11 @@ public class CreateReservationService {
     reservationSearchDto.setCheckInDate(checkInDate);
     reservationSearchDto.setCheckOutDate(checkOutDate);
 
-    var reservations = searchReservationService.searchReservations(reservationSearchDto);
+    var reservations = searchReservationService.searchReservationeasy(reservationSearchDto);
 
     if (!reservations.isEmpty()) {
       ResponseFormat responseFormat = new ResponseFormat(
-          "El usuario ya tiene una reserva para la habitación "+ rooms.get().getName() + " !",
+          "El usuario ya tiene una reserva para la habitación " + rooms.get().getName() + " !",
           HttpStatus.BAD_REQUEST.value(),
           LocalDateTime.now());
       return responseFormat;
@@ -164,8 +174,23 @@ public class CreateReservationService {
 
     updateRoomService.updateRoom(newroom);
 
+    // Here trace
+    Traceability trace = new Traceability();
+    trace.setEventname("Usuario ha reservado");
+    trace.setUsername("Juan Gomez");
+    trace.setDatenow(LocalDateTime.now());
+
+    // Selecciona la estrategia adecuada según las necesidades del negocio
+    gotraceabilityService.setTraceabilityStrategy(saveToDatabaseStrategy);
+    // O usa la siguiente línea en lugar de la anterior para cambiar a
+
+    // PrintPdfStrategy
+    // gotraceabilityService.setTraceabilityStrategy(printPdfStrategy);
+
+    gotraceabilityService.saveAuditory(trace);
+
     ResponseFormat Response = new ResponseFormat(
-        "El user " + user.getName() + "  ha reservado la habitación  "
+        "El user " + user.get().getName() + "  ha reservado la habitación  "
             + rooms.get().getName(),
         HttpStatus.IM_USED.value(),
         LocalDateTime.now());

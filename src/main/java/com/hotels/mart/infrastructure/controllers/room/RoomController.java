@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hotels.mart.application.dto.ResponseFormat;
+import com.hotels.mart.application.services.room.GetAllRoomsService;
 import com.hotels.mart.application.services.room.GetRoomByIdService;
+import com.hotels.mart.application.services.room.SetAllRoomAvailable;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +26,13 @@ public class RoomController {
   @Autowired
   private GetRoomByIdService getRoomByIdService;
 
-  @GetMapping
+  @Autowired
+  private GetAllRoomsService getAllRoomsService;  
+  
+  @Autowired
+  private SetAllRoomAvailable setAllRoomAvailable;
+
+  @GetMapping("/searchById")
   public ResponseEntity<?> serchById(
       @RequestParam(value = "room_id", required = false) Long roomId) {
     log.info("Buscando Room By Id");
@@ -46,6 +55,19 @@ public class RoomController {
     // Si todo sale bien, se retorna el objeto
     return ResponseEntity.ok(room);
 
+  }
+
+  @GetMapping
+  public ResponseEntity<?> getAllRooms() {
+    log.info("Getting all rooms");
+    return new ResponseEntity<>(getAllRoomsService.getAllRooms(), HttpStatus.OK);
+  }
+
+  @PutMapping("/setAllRoomAvailable")
+  public ResponseEntity<?> setAllRoomAvailable() {
+    log.info("Setting all rooms available");
+    setAllRoomAvailable.setAllRoomAvailable();
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
 }
