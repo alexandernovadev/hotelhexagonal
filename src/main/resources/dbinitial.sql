@@ -99,8 +99,6 @@ ALTER TABLE sales
   ADD FOREIGN KEY (payment_method_id) REFERENCES payment_methods(payment_method_id);
 
 
-
-
 CREATE TABLE traceability (
   id INT NOT NULL AUTO_INCREMENT,
   user VARCHAR(100) NOT NULL,
