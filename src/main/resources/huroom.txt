@@ -1,0 +1,43 @@
+ID: 5
+Nombre: Yo como administrador deseo administrar las habitaciones a través del sistema backend.
+Prioridad en el negocio: Alta
+Creado por: Equipo de análisis
+Actor: Administrador
+
+Descripción:
+El administrador con acceso y autorización apropiados necesita interactuar con el sistema backend para administrar las habitaciones. Esto incluye obtener, buscar, actualizar, agregar, y eliminar habitaciones.
+
+Precondiciones:
+- El usuario tiene el rol de administrador en el sistema.
+- El administrador está autenticado y autorizado para realizar operaciones de administración de habitaciones.
+- El administrador dispone de los permisos y credenciales necesarios para interactuar con la API de administración de habitaciones.
+- La plataforma soporta un gran número de solicitudes concurrentes para garantizar escalabilidad.
+- El administrador recibe una confirmación después de cada acción exitosa.
+
+Criterios de Aceptación:
+
+Titulo: Escenario 1: Obtención de la lista de habitaciones
+Contexto: Dado que el administrador autenticado realiza una petición GET al endpoint `/rooms`
+Evento: Cuando el backend recibe la petición
+Resultado: El backend responde con un código HTTP 200 y un cuerpo JSON que incluye la lista de habitaciones existentes. En caso de error, se devuelve un código de error apropiado con un mensaje descriptivo.
+
+Titulo: Escenario 2: Actualización de los detalles de una habitación
+Contexto: Dado que el administrador autenticado realiza una petición PUT al endpoint `/rooms/{room_id}` con un cuerpo JSON que contiene los nuevos detalles de la habitación
+Evento: Cuando el backend recibe la petición
+Resultado: El backend actualiza los detalles de la habitación correspondiente en la base de datos y responde con un código HTTP 200. Si la habitación no existe, se devuelve un código HTTP 404. En caso de error, se devuelve un código de error apropiado con un mensaje descriptivo.
+
+Titulo: Escenario 3: Adición de una nueva habitación
+Contexto: Dado que el administrador autenticado realiza una petición POST al endpoint `/rooms` con un cuerpo JSON que contiene los detalles de la nueva habitación
+Evento: Cuando el backend recibe la petición
+Resultado: El backend crea una nueva habitación en la base de datos con los detalles proporcionados y responde con un código HTTP 201 y un cuerpo JSON que contiene los detalles de la habitación creada. En caso de error, se devuelve un código de error apropiado con un mensaje descriptivo.
+
+Titulo: Escenario 4: Eliminación de una habitación
+Contexto: Dado que el administrador autenticado realiza una petición DELETE al endpoint `/rooms/{room_id}`
+Evento: Cuando el backend recibe la petición
+Resultado: El backend verifica que la habitación no tenga reservas activas. Si no las tiene, elimina la habitación correspondiente de la base de datos y responde con un código HTTP 204. Si la habitación tiene reservas activas, se devuelve un código HTTP 400 con un mensaje que indica que la habitación no puede ser eliminada. En caso de error, se devuelve un código de error apropiado con un mensaje descriptivo.
+
+Titulo: Escenario 5: Búsqueda de habitaciones
+Contexto: Dado que el administrador autenticado realiza una petición GET al endpoint `/rooms?search={search_term}`
+Evento: Cuando el backend recibe la petición
+Resultado: El backend busca en las habitaciones que coincidan con el término de búsqueda proporcionado y responde con un código HTTP 200 y un cuerpo JSON que contiene la lista de habitaciones coincidentes. Si no se encuentran habitaciones coincidentes, se devuelve un cuerpo vacío. En caso de error, se devuelve un código de error apropiado con un mensaje descriptivo.
+
