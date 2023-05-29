@@ -19,7 +19,6 @@ import com.hotels.mart.application.services.room.GetAllRoomsService;
 import com.hotels.mart.application.services.room.GetRoomByIdService;
 import com.hotels.mart.application.services.room.SaveRoomService;
 import com.hotels.mart.application.services.room.SetAllRoomAvailable;
-import com.hotels.mart.domain.entities.Room;
 
 import lombok.extern.slf4j.Slf4j;
 
