@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import com.hotels.mart.application.dto.ResponseFormat;
 import com.hotels.mart.application.dto.RoomSaveDto;
@@ -23,14 +22,11 @@ import com.hotels.mart.application.services.room.SaveRoomService;
 import com.hotels.mart.application.services.room.SearchAdvancedService;
 import com.hotels.mart.application.services.room.SetAllRoomAvailable;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/rooms")
 @Slf4j
-@Tag(name = "Rooms")
 public class RoomController {
 
   @Autowired
@@ -104,10 +100,6 @@ public class RoomController {
 
   }
 
-  @Operation(description = "Put endpoint for manager", 
-  summary = "This is a summary for management get endpoint", responses = {
-      @ApiResponse(description = "Success", responseCode = "200"),
-      @ApiResponse(description = "Unauthorized / Invalid Token", responseCode = "403") })
   @PutMapping("/setAllRoomAvailable")
   public ResponseEntity<?> setAllRoomAvailable() {
     log.info("Setting all rooms available");
