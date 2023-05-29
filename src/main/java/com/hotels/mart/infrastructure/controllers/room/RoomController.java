@@ -1,5 +1,6 @@
 package com.hotels.mart.infrastructure.controllers.room;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +13,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import com.hotels.mart.application.dto.ResponseFormat;
 import com.hotels.mart.application.dto.RoomSaveDto;
 import com.hotels.mart.application.services.room.GetAllRoomsService;
 import com.hotels.mart.application.services.room.GetRoomByIdService;
 import com.hotels.mart.application.services.room.SaveRoomService;
+import com.hotels.mart.application.services.room.SearchAdvancedService;
 import com.hotels.mart.application.services.room.SetAllRoomAvailable;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/rooms")
 @Slf4j
+@Tag(name = "Rooms")
 public class RoomController {
 
   @Autowired
@@ -38,6 +44,9 @@ public class RoomController {
 
   @Autowired
   private SaveRoomService room_service;
+
+  @Autowired
+  private SearchAdvancedService search;
 
   @PostMapping()
   public ResponseEntity<?> saveRoom(@RequestBody RoomSaveDto roomdto) {
@@ -77,13 +86,28 @@ public class RoomController {
   public ResponseEntity<?> getAllRooms() {
     log.info("Getting all rooms");
     return new ResponseEntity<>(getAllRoomsService.getAllRooms(), HttpStatus.OK);
-  }  
-  @GetMapping("/search")
-  public ResponseEntity<?> searchRooms() {
-    log.info("Search Rooms");
-    return new ResponseEntity<>("Seahc", HttpStatus.OK);
   }
 
+  @GetMapping("/search")
+  public ResponseEntity<?> searchRooms(
+      @RequestParam(value = "room_id", required = false) Long room_id,
+      @RequestParam(value = "type_room_id", required = false) Long type_room_id,
+      @RequestParam(value = "state_room_id", required = false) Long state_room_id,
+      @RequestParam(value = "name", required = false) String name,
+      @RequestParam(value = "description", required = false) String description,
+      @RequestParam(value = "cost", required = false) BigDecimal cost) {
+    log.info("Search Rooms");
+
+    var response = search.roomByQueryParameters(room_id, type_room_id, state_room_id, cost, name, description);
+
+    return new ResponseEntity<>(response, response.getStatus());
+
+  }
+
+  @Operation(description = "Put endpoint for manager", 
+  summary = "This is a summary for management get endpoint", responses = {
+      @ApiResponse(description = "Success", responseCode = "200"),
+      @ApiResponse(description = "Unauthorized / Invalid Token", responseCode = "403") })
   @PutMapping("/setAllRoomAvailable")
   public ResponseEntity<?> setAllRoomAvailable() {
     log.info("Setting all rooms available");
