@@ -59,10 +59,19 @@ docker pull mysql:latest
 docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
 ``` 
 
+***Go to mysql compose ***
+```
+docker-compose exec db mysql -uroot -proot marthoteldb
+```
 ***Run mysql of docker***
 ```
 create database marthoteldb;
 use marthoteldb
+```
+
+***Run App from docker ***
+```
+docker-compose up -d
 ```
 
 ##### Copy data from db.sql after copy intest from seed.sql (**show_resources**)
