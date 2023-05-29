@@ -3,7 +3,7 @@ package com.hotels.mart.application.services.reservation;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import com.hotels.mart.application.services.room.SearchRoomStateByIdService;
 import com.hotels.mart.application.services.room.UpdateRoomService;
 import com.hotels.mart.application.services.traceability.GotraceabilityService;
 import com.hotels.mart.application.services.user.GetUserByIdService;
-import com.hotels.mart.application.strategies.PrintPdfStrategy;
+// import com.hotels.mart.application.strategies.PrintPdfStrategy;
 import com.hotels.mart.application.strategies.SaveToDatabaseStrategy;
 import com.hotels.mart.domain.entities.Reservation;
 import com.hotels.mart.domain.entities.Room;
@@ -55,8 +55,8 @@ public class CreateReservationService {
   @Autowired
   private SaveToDatabaseStrategy saveToDatabaseStrategy;
 
-  @Autowired
-  private PrintPdfStrategy printPdfStrategy;
+  // @Autowired
+  // private PrintPdfStrategy printPdfStrategy;
 
   public ResponseFormat createReservation(@Valid ReservationCreateDto reservation) {
 
@@ -85,7 +85,7 @@ public class CreateReservationService {
           LocalDateTime.now());
       return responseFormat;
     }
-    // TODO: Verificar si el usuario tiene permisos para reservar
+    // TO DO: Verificar si el usuario tiene permisos para reservar
 
     // Verificar if reservation_state_id existe
     if (reservation.getReservation_state_id() != null

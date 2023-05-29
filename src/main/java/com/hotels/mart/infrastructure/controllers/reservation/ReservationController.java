@@ -1,7 +1,5 @@
 package com.hotels.mart.infrastructure.controllers.reservation;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -19,6 +17,7 @@ import com.hotels.mart.application.dto.ResponseFormat;
 import com.hotels.mart.application.services.reservation.CreateReservationService;
 import com.hotels.mart.application.services.reservation.SearchReservationService;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
