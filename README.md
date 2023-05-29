@@ -80,6 +80,13 @@ docker-compose up -d
 
 Feel free to open issues and pull requests. For major changes, please open an issue first to discuss what you would like to change.
 
+## Swagger 
+
+Changue the port and url if is necesary !
+```
+http://localhost:8080/swagger-ui/index.html
+```
+
 ## License
 
 The project is under the MIT license. For more information, please see the [LICENSE](LICENSE) file.
