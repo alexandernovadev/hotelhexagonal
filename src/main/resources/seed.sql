@@ -54,24 +54,24 @@ INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) 
 INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Sarah Moore', 'sarah.moore@example.com', 'password11');
 
 -- Insert into rooms
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (1, 1, 'Room 101', 'Single room with park view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (2, 1, 'Room 102', 'Double room with sea view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (3, 1, 'Room 201', 'Triple room with city view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (4, 1, 'Room 202', 'Quad room with garden view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (5, 1, 'Room 301', 'Queen room with mountain view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (1, 1, 'Room 302', 'Single room with park view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (2, 1, 'Room 401', 'Double room with city view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (3, 1, 'Room 402', 'Triple room with garden view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (4, 1, 'Room 501', 'Quad room with sea view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (5, 1, 'Room 502', 'Queen room with city view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (1, 1, 'Room 601', 'Single room with mountain view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (2, 1, 'Room 602', 'Double room with park view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (3, 1, 'Room 701', 'Triple room with sea view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (4, 1, 'Room 702', 'Quad room with city view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (5, 1, 'Room 801', 'Queen room with garden view');
-INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`) VALUES (1, 1, 'Room 802', 'Single room with sea view');
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (1, 1, 'Room 101', 'Single room with park view', 80.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (2, 1, 'Room 102', 'Double room with sea view', 120.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (3, 1, 'Room 201', 'Triple room with city view', 150.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (4, 1, 'Room 202', 'Quad room with garden view', 200.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (5, 1, 'Room 301', 'Queen room with mountain view', 250.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (1, 1, 'Room 302', 'Single room with park view', 80.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (2, 1, 'Room 401', 'Double room with city view', 120.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (3, 1, 'Room 402', 'Triple room with garden view', 150.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (4, 1, 'Room 501', 'Quad room with sea view', 200.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (5, 1, 'Room 502', 'Queen room with city view', 250.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (1, 1, 'Room 601', 'Single room with mountain view', 80.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (2, 1, 'Room 602', 'Double room with park view', 120.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (3, 1, 'Room 701', 'Triple room with sea view', 150.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (4, 1, 'Room 702', 'Quad room with city view', 200.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (5, 1, 'Room 801', 'Queen room with garden view', 250.00);
+INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (1, 1, 'Room 802', 'Single room with sea view', 80.00);
 
 
+-- Insert into reservations 
 
-
-
+-- Insert into Sales 

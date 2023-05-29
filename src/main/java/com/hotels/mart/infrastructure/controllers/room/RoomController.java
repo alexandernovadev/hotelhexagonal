@@ -6,15 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hotels.mart.application.dto.ResponseFormat;
+import com.hotels.mart.application.dto.RoomSaveDto;
 import com.hotels.mart.application.services.room.GetAllRoomsService;
 import com.hotels.mart.application.services.room.GetRoomByIdService;
+import com.hotels.mart.application.services.room.SaveRoomService;
 import com.hotels.mart.application.services.room.SetAllRoomAvailable;
+import com.hotels.mart.domain.entities.Room;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,10 +32,22 @@ public class RoomController {
   private GetRoomByIdService getRoomByIdService;
 
   @Autowired
-  private GetAllRoomsService getAllRoomsService;  
-  
+  private GetAllRoomsService getAllRoomsService;
+
   @Autowired
   private SetAllRoomAvailable setAllRoomAvailable;
+
+  @Autowired
+  private SaveRoomService room_service;
+
+  @PostMapping()
+  public ResponseEntity<?> saveRoom(@RequestBody RoomSaveDto roomdto) {
+    log.info("Save Rooms");
+
+    var response = room_service.saveRoom(roomdto);
+
+    return new ResponseEntity<>(response, response.getStatus());
+  }
 
   @GetMapping("/searchById")
   public ResponseEntity<?> serchById(
@@ -61,6 +78,11 @@ public class RoomController {
   public ResponseEntity<?> getAllRooms() {
     log.info("Getting all rooms");
     return new ResponseEntity<>(getAllRoomsService.getAllRooms(), HttpStatus.OK);
+  }  
+  @GetMapping("/search")
+  public ResponseEntity<?> searchRooms() {
+    log.info("Search Rooms");
+    return new ResponseEntity<>("Seahc", HttpStatus.OK);
   }
 
   @PutMapping("/setAllRoomAvailable")
