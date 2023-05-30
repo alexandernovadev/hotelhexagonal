@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.hotels.mart.application.dto.RatingSaveDto;
 import com.hotels.mart.application.dto.ResponseApi;
+import com.hotels.mart.domain.entities.Rating;
 import com.hotels.mart.domain.entities.Reservation;
 import com.hotels.mart.domain.entities.User;
 import com.hotels.mart.infrastructure.jpa.repositories.RatingRepository;
@@ -30,6 +31,8 @@ public class SaveRatingService {
   private ReservationRepository reservationRepository;
 
   public ResponseApi saveRating(RatingSaveDto ratingSaveDto) {
+
+    // If send string in int ,. it chashed :OOOOOO :'( '  
 
     // Sholuld structure be validate
     if (ratingSaveDto.getReservation_id() <= 0
@@ -79,14 +82,20 @@ public class SaveRatingService {
 
     // Should the comment has at leat 10 and max 200 caracteres
     int commentLength = ratingSaveDto.getComment().length();
-    if (commentLength < 10 || commentLength > 200) {
+    if (commentLength < 50 || commentLength > 200) {
       return new ResponseApi(
-          "Invalid comment characters,it needs to be between 10 to 200",
+          "Invalid comment characters,it needs to be between 50 to 200 of lenght",
           HttpStatus.BAD_REQUEST,
           LocalDateTime.now());
     }
 
     // If all is validate should save data
+    Rating rating = new Rating();
+    rating.setReservation(reservation.get());
+    rating.setUser(user.get());
+    rating.setRating(ratingSaveDto.getRating());
+    rating.setComment(ratingSaveDto.getComment());
+    ratingRepository.save(rating);
 
     return new ResponseApi(
         "Review save Succesfully",
