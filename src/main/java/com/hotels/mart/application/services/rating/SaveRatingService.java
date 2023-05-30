@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.hotels.mart.application.dto.RatingSaveDto;
 import com.hotels.mart.application.dto.ResponseApi;
 import com.hotels.mart.infrastructure.jpa.repositories.RatingRepository;
 
@@ -15,7 +16,7 @@ public class SaveRatingService {
   @Autowired
   private RatingRepository ratingRepository;
 
-  public ResponseApi saveRating() {
+  public ResponseApi saveRating(RatingSaveDto ratingSaveDto) {
 
     return new ResponseApi(
         "La estructura del JSON no es válida",
