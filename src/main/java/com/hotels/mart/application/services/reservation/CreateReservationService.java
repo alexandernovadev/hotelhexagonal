@@ -3,8 +3,6 @@ package com.hotels.mart.application.services.reservation;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import jakarta.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,6 +22,8 @@ import com.hotels.mart.domain.entities.Reservation;
 import com.hotels.mart.domain.entities.Room;
 import com.hotels.mart.domain.entities.Traceability;
 import com.hotels.mart.infrastructure.jpa.repositories.ReservationRepository;
+
+import jakarta.validation.Valid;
 
 @Service
 public class CreateReservationService {
@@ -171,6 +171,7 @@ public class CreateReservationService {
     newroom.setDescription(rooms.get().getDescription());
     newroom.setType_room_id(rooms.get().getType_room_id());
     newroom.setState_room_id(reservedState);
+    newroom.setCost(rooms.get().getCost());
 
     updateRoomService.updateRoom(newroom);
 

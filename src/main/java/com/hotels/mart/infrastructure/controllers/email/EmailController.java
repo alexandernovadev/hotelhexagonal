@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 // import com.hotels.mart.application.dto.ResponseFormat;
 import com.hotels.mart.application.services.emails.EmailService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -20,7 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 public class EmailController {
   @Autowired
   EmailService emailService;
-
+  @Operation(summary = "Envio de correo", description = "Aquie podemos enviar correo mediante gmail", responses = {
+    @ApiResponse(responseCode = "200", description = "Successful operation")
+    })
   @GetMapping("/sendEmail")
   public ResponseEntity<?> sendEmail() {
 
