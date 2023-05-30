@@ -171,6 +171,7 @@ public class CreateReservationService {
     newroom.setDescription(rooms.get().getDescription());
     newroom.setType_room_id(rooms.get().getType_room_id());
     newroom.setState_room_id(reservedState);
+    newroom.setCost(rooms.get().getCost());
 
     updateRoomService.updateRoom(newroom);
 
