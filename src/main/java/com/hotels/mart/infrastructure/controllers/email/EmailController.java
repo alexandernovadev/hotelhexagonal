@@ -32,7 +32,7 @@ public class EmailController {
 
     var response = emailService.sendEmail("andresolano34@gmail.com",
         "titoantifa69@gmail.com", "Testing", "Hola Marte we are live");
-    // return new ResponseEntity<>("Email sending", HttpStatus.CREATED);
+    // return new ResponseEntity<>("Email sending", HttpStatus.CREATED);git a
 
     // ResponseFormat responseFormat = new ResponseFormat(
     //     "Email sending",
