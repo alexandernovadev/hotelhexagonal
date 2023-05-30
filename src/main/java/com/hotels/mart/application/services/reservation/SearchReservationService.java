@@ -104,7 +104,7 @@ public class SearchReservationService {
         reservationSearchDto.getCheckOutDate());
 
     var response = emailService.sendEmail("andresolano34@gmail.com",
-        "daolano58@ucatolica.edu.co", "Testing", "Ha buscado una reserva ");
+        "daolano58@ucatolica.edu.co", "Hotel Smart ha realizado su consulta exitosamente", "Ha buscado una reserva ");
 
 
     ResponseFormat responseFormat = new ResponseFormat(

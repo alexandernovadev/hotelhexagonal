@@ -93,7 +93,7 @@ public class CreateSaleService {
     // Si todo es valido WELL DONE
     salesRepository.save(sale);
     var response = emailService.sendEmail("andresolano34@gmail.com",
-    "daolano58@ucatolica.edu.co", "equipo de ventas", "Hizo una compra");
+    "daolano58@ucatolica.edu.co", "equipo de ventas", "Hotel Smart agradece haber confirmad el pago de su reservacion");
     ResponseFormat responseFormat = new ResponseFormat("Venta exitosa ...:D",
         HttpStatus.BAD_REQUEST.value(), LocalDateTime.now());
     return responseFormat;
