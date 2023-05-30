@@ -16,6 +16,10 @@ import com.hotels.mart.application.services.traceability.GotraceabilityService;
 import com.hotels.mart.application.strategies.SaveToDatabaseStrategy;
 import com.hotels.mart.domain.entities.Traceability;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -31,7 +35,9 @@ public class TraceabilityController {
 
   // @Autowired
   // private PrintPdfStrategy printPdfStrategy;
-
+  @Operation(summary = "Aca se implementa trazabilidad ", description = "aca podemos evidenciar los cambio en una tabla", responses = {
+    @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = Traceability.class)))
+     })
   @PostMapping
   public ResponseEntity<?> saveTrazaliobite(@RequestBody Traceability traceabilitydto) {
 
