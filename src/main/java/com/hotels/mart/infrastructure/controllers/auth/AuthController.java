@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import com.hotels.mart.application.dto.JWTResponseApiDto;
+import com.hotels.mart.application.dto.LoginUserDto;
 import com.hotels.mart.application.dto.UserRegisterDto;
+import com.hotels.mart.application.services.auth.LoginUserService;
 import com.hotels.mart.application.services.auth.RegisterUserService;
 import com.hotels.mart.infrastructure.config.JwtUtil;
 
@@ -25,19 +27,27 @@ public class AuthController {
   @Autowired
   RegisterUserService serviceRegister;
 
+  @Autowired
+  LoginUserService loginUserService;
+
   @PostMapping("/login")
-  public ResponseEntity<?> loginUser() {
+  public ResponseEntity<?> loginUser(@RequestBody LoginUserDto loginUserDto) {
 
     log.info("Login with JWT");
 
-    JwtUtil jwtUtil = new JwtUtil();
-    String token = jwtUtil.generateToken("alexander@nova.com");
+    var response = loginUserService.doLogin(loginUserDto);
 
-    JWTResponseApiDto response = new JWTResponseApiDto();
-    response.setMessage("token");
-    response.setToken(token);
+    JWTResponseApiDto responseJWT = new JWTResponseApiDto();
 
-    return new ResponseEntity<>(response, HttpStatus.CREATED);
+    if (response.getStatus() == HttpStatus.CREATED) {
+      responseJWT.setMessage("token");
+      responseJWT.setToken(response.getData().get(0).toString());
+    } else {
+      responseJWT.setMessage("User No valid");
+      responseJWT.setToken("---");
+    }
+
+    return new ResponseEntity<>(responseJWT, response.getStatus());
 
   }
 
