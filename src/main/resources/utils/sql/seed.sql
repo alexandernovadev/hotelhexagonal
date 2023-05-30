@@ -40,18 +40,18 @@ INSERT INTO `reservations_state` (`state`) VALUES ('No-show');
 INSERT INTO `reservations_state` (`state`) VALUES ('Checked-in');
 INSERT INTO `reservations_state` (`state`) VALUES ('Checked-out');
 
--- Insert into users
-INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('admin', 1, 'Admin User', 'admin@example.com', 'password1');
-INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'John Doe', 'john.doe@example.com', 'password2');
-INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Jane Smith', 'jane.smith@example.com', 'password3');
-INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Robert Johnson', 'robert.johnson@example.com', 'password4');
-INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Maria Garcia', 'maria.garcia@example.com', 'password5');
-INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('admin', 1, 'Super User', 'super.user@example.com', 'password6');
-INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'James Brown', 'james.brown@example.com', 'password7');
-INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Emily Davis', 'emily.davis@example.com', 'password8');
-INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Jessica Miller', 'jessica.miller@example.com', 'password9');
-INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Michael Wilson', 'michael.wilson@example.com', 'password10');
-INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Sarah Moore', 'sarah.moore@example.com', 'password11');
+-- Insert into users (admin is the password)
+INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('admin', 1, 'Admin User', 'admin@example.com', '$2a$10$vQZyKo0NbHunzwiStvPfx.KCy6apDBkZBiOoWmgcE6AnlaDdaUD2S');
+INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'John Doe', 'john.doe@example.com', '$2a$10$vQZyKo0NbHunzwiStvPfx.KCy6apDBkZBiOoWmgcE6AnlaDdaUD2S');
+INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Jane Smith', 'jane.smith@example.com', '$2a$10$vQZyKo0NbHunzwiStvPfx.KCy6apDBkZBiOoWmgcE6AnlaDdaUD2S');
+INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Robert Johnson', 'robert.johnson@example.com', '$2a$10$vQZyKo0NbHunzwiStvPfx.KCy6apDBkZBiOoWmgcE6AnlaDdaUD2S');
+INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Maria Garcia', 'maria.garcia@example.com', '$2a$10$vQZyKo0NbHunzwiStvPfx.KCy6apDBkZBiOoWmgcE6AnlaDdaUD2S');
+INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('admin', 1, 'Super User', 'super.user@example.com', '$2a$10$vQZyKo0NbHunzwiStvPfx.KCy6apDBkZBiOoWmgcE6AnlaDdaUD2S');
+INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'James Brown', 'james.brown@example.com', '$2a$10$vQZyKo0NbHunzwiStvPfx.KCy6apDBkZBiOoWmgcE6AnlaDdaUD2S');
+INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Emily Davis', 'emily.davis@example.com', '$2a$10$vQZyKo0NbHunzwiStvPfx.KCy6apDBkZBiOoWmgcE6AnlaDdaUD2S');
+INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Jessica Miller', 'jessica.miller@example.com', '$2a$10$vQZyKo0NbHunzwiStvPfx.KCy6apDBkZBiOoWmgcE6AnlaDdaUD2S');
+INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Michael Wilson', 'michael.wilson@example.com', '$2a$10$vQZyKo0NbHunzwiStvPfx.KCy6apDBkZBiOoWmgcE6AnlaDdaUD2S');
+INSERT INTO `users` (`user_type`, `user_state_id`, `name`, `email`, `password`) VALUES ('customer', 1, 'Sarah Moore', 'sarah.moore@example.com', '$2a$10$vQZyKo0NbHunzwiStvPfx.KCy6apDBkZBiOoWmgcE6AnlaDdaUD2S');
 
 -- Insert into rooms
 INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (1, 1, 'Room 101', 'Single room with park view', 80.00);
