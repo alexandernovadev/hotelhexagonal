@@ -59,7 +59,7 @@ docker pull mysql:latest
 docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
 ``` 
 
-***Go to mysql compose ***
+***Go to mysql compose***
 ```
 docker-compose exec db mysql -uroot -proot marthoteldb
 ```
@@ -69,7 +69,7 @@ create database marthoteldb;
 use marthoteldb
 ```
 
-***Run App from docker ***
+***Run App from docker***
 ```
 docker-compose up -d
 ```
