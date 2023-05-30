@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.hotels.mart.application.dto.RatingSaveDto;
 import com.hotels.mart.application.dto.ResponseApi;
+import com.hotels.mart.domain.entities.Reservation;
 import com.hotels.mart.domain.entities.User;
 import com.hotels.mart.infrastructure.jpa.repositories.RatingRepository;
 import com.hotels.mart.infrastructure.jpa.repositories.ReservationRepository;
@@ -16,6 +17,8 @@ import com.hotels.mart.infrastructure.jpa.repositories.UserRepository;
 
 @Service
 public class SaveRatingService {
+
+  private final Long RESERVATION_CANCELED = 2L;
 
   @Autowired
   private RatingRepository ratingRepository;
@@ -40,12 +43,36 @@ public class SaveRatingService {
     }
 
     // Should user_id exist
-    // Optional<User> user  = userRepository.findById(Long.valueOf(ratingSaveDto.getUser_id()));
+    Optional<User> user = userRepository.findById(Long.valueOf(ratingSaveDto.getUser_id()));
+    if (user.isEmpty()) {
+      return new ResponseApi(
+          "User with ID:" + ratingSaveDto.getUser_id() + " not exist",
+          HttpStatus.BAD_REQUEST,
+          LocalDateTime.now());
+    }
+
+    // Sholuld reservation exist
+    Optional<Reservation> reservation = reservationRepository.findById(Long.valueOf(ratingSaveDto.getReservation_id()));
+    if (reservation.isEmpty()) {
+      return new ResponseApi(
+          "Reservation with ID:" + ratingSaveDto.getReservation_id() + " not exist",
+          HttpStatus.BAD_REQUEST,
+          LocalDateTime.now());
+    }
+
+    // If reservation exist sholud the reserved be cancelled
+    var isReservationCancelled = reservation.get().getReservation_state_id().getReservation_state_id();
+    if (isReservationCancelled != RESERVATION_CANCELED) {
+      return new ResponseApi(
+          "The reservation it needs to be in CANCELLED state",
+          HttpStatus.BAD_REQUEST,
+          LocalDateTime.now());
+    }
 
     // Should rating be between 0 and 5
     if (ratingSaveDto.getRating() < 0 || ratingSaveDto.getRating() > 5) {
       return new ResponseApi(
-          "Invalid rating value",
+          "Invalid rating value,it needs to be between 0 to 5",
           HttpStatus.BAD_REQUEST,
           LocalDateTime.now());
     }
@@ -54,14 +81,10 @@ public class SaveRatingService {
     int commentLength = ratingSaveDto.getComment().length();
     if (commentLength < 10 || commentLength > 200) {
       return new ResponseApi(
-          "Invalid comment length",
+          "Invalid comment characters,it needs to be between 10 to 200",
           HttpStatus.BAD_REQUEST,
           LocalDateTime.now());
     }
-
-    // Sholuld reservation exist
-
-    // If reservation exist sholud the reserved be cancelled
 
     // If all is validate should save data
 
