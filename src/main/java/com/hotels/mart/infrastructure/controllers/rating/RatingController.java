@@ -53,9 +53,7 @@ public class RatingController {
     log.info("Search all Ratings");
 
     var response = searchRatingService.search(
-      rating_id,reservation_id,user_id,rating,comment
-
-    );
+        rating_id, reservation_id, user_id, rating, comment);
 
     return new ResponseEntity<>(response, response.getStatus());
   }
