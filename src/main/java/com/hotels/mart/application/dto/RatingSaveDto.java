@@ -12,9 +12,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RatingSaveDto {
-  int reservation_id;
-  int rating;
-  int user_id;
-  String comment;
-  
+  private int reservation_id;
+  private int rating;
+  private int user_id;
+  private String comment;
+
 }
