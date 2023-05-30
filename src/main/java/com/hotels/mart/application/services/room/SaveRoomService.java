@@ -2,6 +2,7 @@ package com.hotels.mart.application.services.room;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.hotels.mart.application.dto.ResponseApi;
 import com.hotels.mart.application.dto.RoomSaveDto;
 import com.hotels.mart.domain.entities.Room;
+import com.hotels.mart.domain.entities.User;
 import com.hotels.mart.infrastructure.jpa.repositories.RoomRepository;
 import com.hotels.mart.infrastructure.jpa.repositories.RoomStateRepository;
 import com.hotels.mart.infrastructure.jpa.repositories.RoomTypeRepository;
@@ -30,18 +32,21 @@ public class SaveRoomService {
   @Autowired
   private UserRepository userRepository;
 
-  // public void createUser(User user) {
-  // userRepository.save(user);
-  // }
-
   public ResponseApi saveRoom(RoomSaveDto roomdto) {
 
     Room room = roomdto.getRoom();
-    var user = userRepository.getReferenceById(roomdto.getUser_id());
+    Optional<User> userOptional = userRepository.findById(roomdto.getUser_id());
+
+    if (!userOptional.isPresent()) {
+      return new ResponseApi(
+          "This User No exist !",
+          HttpStatus.BAD_REQUEST,
+          LocalDateTime.now());
+    }
+    User user = userOptional.get();
 
     var userType = user.getUser_type();
     // If user no exist, o si no es admin salga
-    // CHATGPT haz esto
     if (userType == null || !userType.equals("admin")) {
       return new ResponseApi(
           "Unauthorized access",
@@ -55,7 +60,7 @@ public class SaveRoomService {
 
       return new ResponseApi(
           "La estructura del JSON no es válida",
-          HttpStatus.FOUND,
+          HttpStatus.BAD_REQUEST,
           LocalDateTime.now());
     }
 
@@ -86,7 +91,6 @@ public class SaveRoomService {
     }
 
     // All riight with data
-
     ResponseApi ResponseApi = new ResponseApi(
         "Room created succesfully",
         HttpStatus.CREATED,

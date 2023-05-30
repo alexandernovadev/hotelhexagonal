@@ -16,7 +16,6 @@ import com.hotels.mart.application.services.room.SearchRoomStateByIdService;
 import com.hotels.mart.application.services.room.UpdateRoomService;
 import com.hotels.mart.application.services.traceability.GotraceabilityService;
 import com.hotels.mart.application.services.user.GetUserByIdService;
-// import com.hotels.mart.application.strategies.PrintPdfStrategy;
 import com.hotels.mart.application.strategies.SaveToDatabaseStrategy;
 import com.hotels.mart.domain.entities.Reservation;
 import com.hotels.mart.domain.entities.Room;
