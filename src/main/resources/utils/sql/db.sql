@@ -92,3 +92,16 @@ CREATE TABLE `sales` (
   FOREIGN KEY (`sales_state_id`) REFERENCES `sales_state`(`sales_state_id`),
   FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods`(`payment_method_id`)
 ) ENGINE=InnoDB;
+
+-- Review Table
+
+CREATE TABLE `ratings` (
+  `rating_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `reservation_id` BIGINT,
+  `user_id` BIGINT,
+  `rating` INT,
+  `comment` VARCHAR(255),
+  PRIMARY KEY (`rating_id`),
+  FOREIGN KEY (`reservation_id`) REFERENCES `reservations`(`reservation_id`),
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`)
+) ENGINE=InnoDB;
