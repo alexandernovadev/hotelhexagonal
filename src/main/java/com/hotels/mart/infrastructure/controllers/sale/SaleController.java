@@ -59,7 +59,10 @@ public class SaleController {
     // Si todo sale bien, se retorna el objeto
     return ResponseEntity.ok(sale);
   }
-
+  @Operation(summary = "Crear ventas", description = "Aqui se pueden crear las ventas realizadas ", responses = {
+    @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(schema = @Schema(implementation = Sale.class))),
+    @ApiResponse(responseCode = "400", description = "Invalid id supplied"),
+    @ApiResponse(responseCode = "404", description = "venta no creada") })
   @PostMapping()
   public ResponseEntity<?> createSale(@RequestBody Sale salesDto) {
 
