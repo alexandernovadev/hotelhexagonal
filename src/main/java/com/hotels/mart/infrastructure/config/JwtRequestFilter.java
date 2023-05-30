@@ -43,6 +43,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
       username = jwtUtil.extractUsername(jwt);
     }
 
+    // TODO Como funciona lo de lo roles
+    // TODO why entity user no implement more mehtoods on userdeatils ?
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
