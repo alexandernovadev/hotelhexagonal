@@ -1,14 +1,14 @@
 package com.hotels.mart.infrastructure.controllers.auth;
 
-import java.time.LocalDateTime;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hotels.mart.application.dto.ResponseFormat;
+import com.hotels.mart.application.dto.JWTResponseApiDto;
+import com.hotels.mart.infrastructure.config.JwtUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,18 +17,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AuthController {
 
-  @PostMapping("/login")
-  public ResponseEntity<?> sendEmail() {
+  @PostMapping
+  public ResponseEntity<?> loginUser() {
 
     log.info("Login with JWT");
+
+    JwtUtil jwtUtil = new JwtUtil();
+    String token = jwtUtil.generateToken("alexander@nova.com");
+
+    JWTResponseApiDto response = new JWTResponseApiDto();
+    response.setMessage("token");
+    response.setToken(token);
     
-
-    ResponseFormat responseFormat = new ResponseFormat(
-        "Login Succefullly",
-        HttpStatus.ACCEPTED.value(),
-        LocalDateTime.now());
-
-    return new ResponseEntity<>(responseFormat, HttpStatus.CREATED);
+    return new ResponseEntity<>(response, HttpStatus.CREATED);
 
   }
 }

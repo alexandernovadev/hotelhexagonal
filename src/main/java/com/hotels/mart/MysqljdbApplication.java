@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import com.hotels.mart.infrastructure.config.WebConfig;
 
 @SpringBootApplication
-@Import(WebConfig.class)
+// @Import(WebConfig.class)
 public class MysqljdbApplication {
 
 	public static void main(String[] args) {
