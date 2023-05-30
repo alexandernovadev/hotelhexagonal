@@ -53,6 +53,7 @@ CREATE TABLE `rooms` (
   `state_room_id` BIGINT,
   `name` VARCHAR(255),
   `description` VARCHAR(255),
+  `cost` DECIMAL(10, 2) NOT NULL,
   PRIMARY KEY (`room_id`),
   FOREIGN KEY (`type_room_id`) REFERENCES `rooms_type`(`rooms_type_id`),
   FOREIGN KEY (`state_room_id`) REFERENCES `rooms_state`(`rooms_state_id`)
@@ -83,6 +84,8 @@ CREATE TABLE `sales` (
   `reservation_id` BIGINT,
   `sales_state_id` BIGINT,
   `payment_method_id` BIGINT,
+  `total_amount` DECIMAL(10, 2) NOT NULL,
+  `quantity` INT NOT NULL,
   PRIMARY KEY (`sales_id`),
   FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`),
   FOREIGN KEY (`reservation_id`) REFERENCES `reservations`(`reservation_id`),

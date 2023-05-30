@@ -1,6 +1,5 @@
 package com.hotels.mart.infrastructure.jpa.repositories;
 
-import org.springframework.stereotype.Repository;
 
 import com.hotels.mart.domain.entities.Reservation;
 
@@ -11,7 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-@Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     @Query("SELECT r FROM Reservation r " +
     "WHERE (:reservationId is null or r.id = :reservationId) " +

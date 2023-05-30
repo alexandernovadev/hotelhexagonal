@@ -1,19 +1,25 @@
 package com.hotels.mart.infrastructure.controllers.room;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hotels.mart.application.dto.ResponseFormat;
+import com.hotels.mart.application.dto.RoomSaveDto;
 import com.hotels.mart.application.services.room.GetAllRoomsService;
 import com.hotels.mart.application.services.room.GetRoomByIdService;
+import com.hotels.mart.application.services.room.SaveRoomService;
+import com.hotels.mart.application.services.room.SearchAdvancedService;
 import com.hotels.mart.application.services.room.SetAllRoomAvailable;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,10 +33,25 @@ public class RoomController {
   private GetRoomByIdService getRoomByIdService;
 
   @Autowired
-  private GetAllRoomsService getAllRoomsService;  
-  
+  private GetAllRoomsService getAllRoomsService;
+
   @Autowired
   private SetAllRoomAvailable setAllRoomAvailable;
+
+  @Autowired
+  private SaveRoomService room_service;
+
+  @Autowired
+  private SearchAdvancedService search;
+
+  @PostMapping()
+  public ResponseEntity<?> saveRoom(@RequestBody RoomSaveDto roomdto) {
+    log.info("Save Rooms");
+
+    var response = room_service.saveRoom(roomdto);
+
+    return new ResponseEntity<>(response, response.getStatus());
+  }
 
   @GetMapping("/searchById")
   public ResponseEntity<?> serchById(
@@ -61,6 +82,22 @@ public class RoomController {
   public ResponseEntity<?> getAllRooms() {
     log.info("Getting all rooms");
     return new ResponseEntity<>(getAllRoomsService.getAllRooms(), HttpStatus.OK);
+  }
+
+  @GetMapping("/search")
+  public ResponseEntity<?> searchRooms(
+      @RequestParam(value = "room_id", required = false) Long room_id,
+      @RequestParam(value = "type_room_id", required = false) Long type_room_id,
+      @RequestParam(value = "state_room_id", required = false) Long state_room_id,
+      @RequestParam(value = "name", required = false) String name,
+      @RequestParam(value = "description", required = false) String description,
+      @RequestParam(value = "cost", required = false) BigDecimal cost) {
+    log.info("Search Rooms");
+
+    var response = search.roomByQueryParameters(room_id, type_room_id, state_room_id, cost, name, description);
+
+    return new ResponseEntity<>(response, response.getStatus());
+
   }
 
   @PutMapping("/setAllRoomAvailable")

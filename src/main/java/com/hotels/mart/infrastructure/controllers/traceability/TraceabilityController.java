@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hotels.mart.application.dto.ResponseFormat;
 import com.hotels.mart.application.services.traceability.GotraceabilityService;
-import com.hotels.mart.application.strategies.PrintPdfStrategy;
+// import com.hotels.mart.application.strategies.PrintPdfStrategy;
 import com.hotels.mart.application.strategies.SaveToDatabaseStrategy;
 import com.hotels.mart.domain.entities.Traceability;
 
@@ -29,8 +29,8 @@ public class TraceabilityController {
   @Autowired
   private SaveToDatabaseStrategy saveToDatabaseStrategy;
 
-  @Autowired
-  private PrintPdfStrategy printPdfStrategy;
+  // @Autowired
+  // private PrintPdfStrategy printPdfStrategy;
 
   @PostMapping
   public ResponseEntity<?> saveTrazaliobite(@RequestBody Traceability traceabilitydto) {

@@ -45,9 +45,47 @@ bashCopy code
 
 The application uses MySQL for database. You need to have a MySQL server running and configure the application properties accordingly.
 
+### Docker Code 
+
+***Download Mysql from mysql docker oficial*** 
+
+```
+docker pull mysql:latest
+``` 
+
+***Run mysql of docker***
+
+```
+docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
+``` 
+
+***Go to mysql compose ***
+```
+docker-compose exec db mysql -uroot -proot marthoteldb
+```
+***Run mysql of docker***
+```
+create database marthoteldb;
+use marthoteldb
+```
+
+***Run App from docker ***
+```
+docker-compose up -d
+```
+
+##### Copy data from db.sql after copy intest from seed.sql (**show_resources**)
+
 ## Contributing
 
 Feel free to open issues and pull requests. For major changes, please open an issue first to discuss what you would like to change.
+
+## Swagger 
+
+Changue the port and url if is necesary !
+```
+http://localhost:8080/swagger-ui/index.html
+```
 
 ## License
 
