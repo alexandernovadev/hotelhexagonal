@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.hotels.mart.application.strategies.TraceabilityStrategy;
 import com.hotels.mart.domain.entities.Traceability;
-import com.hotels.mart.infrastructure.jpa.repositories.TraceabilityRepository;
+// import com.hotels.mart.infrastructure.jpa.repositories.TraceabilityRepository;
 
 @Service
 public class GotraceabilityService {

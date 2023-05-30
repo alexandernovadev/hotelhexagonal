@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.hotels.mart.application.dto.ResponseFormat;
+import com.hotels.mart.application.services.emails.EmailService;
 import com.hotels.mart.application.services.paymentsMethod.GetPaymentMethodByIdService;
 import com.hotels.mart.application.services.reservation.GetReservationById;
 import com.hotels.mart.application.services.sales.salesState.GetSaleStateByIdService;
@@ -16,6 +17,8 @@ import com.hotels.mart.infrastructure.jpa.repositories.SalesRepository;
 
 @Service
 public class CreateSaleService {
+  @Autowired
+  private EmailService emailService;
   @Autowired
   private SalesRepository salesRepository;
 
@@ -89,7 +92,8 @@ public class CreateSaleService {
 
     // Si todo es valido WELL DONE
     salesRepository.save(sale);
-
+    var response = emailService.sendEmail("andresolano34@gmail.com",
+    "daolano58@ucatolica.edu.co", "equipo de ventas", "Hizo una compra");
     ResponseFormat responseFormat = new ResponseFormat("Venta exitosa ...:D",
         HttpStatus.BAD_REQUEST.value(), LocalDateTime.now());
     return responseFormat;

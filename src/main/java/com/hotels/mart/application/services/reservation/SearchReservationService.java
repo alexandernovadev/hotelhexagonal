@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.hotels.mart.application.dto.ReservationSearchDto;
 import com.hotels.mart.application.dto.ResponseFormat;
+import com.hotels.mart.application.services.emails.EmailService;
 import com.hotels.mart.application.services.room.GetRoomByIdService;
 import com.hotels.mart.application.services.user.GetUserByIdService;
 import com.hotels.mart.domain.entities.Reservation;
@@ -18,6 +19,9 @@ import com.hotels.mart.infrastructure.jpa.repositories.ReservationRepository;
 
 @Service
 public class SearchReservationService {
+
+  @Autowired
+  private EmailService emailService;
 
   @Autowired
   private GetUserByIdService getUserByIdService;
@@ -98,6 +102,10 @@ public class SearchReservationService {
         reservationSearchDto.getReservationStateId(),
         reservationSearchDto.getCheckInDate(),
         reservationSearchDto.getCheckOutDate());
+
+    var response = emailService.sendEmail("andresolano34@gmail.com",
+        "daolano58@ucatolica.edu.co", "Testing", "Ha buscado una reserva ");
+
 
     ResponseFormat responseFormat = new ResponseFormat(
         "Datos filtrados",

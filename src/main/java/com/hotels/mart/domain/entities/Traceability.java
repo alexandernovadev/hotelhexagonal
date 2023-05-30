@@ -1,6 +1,5 @@
 package com.hotels.mart.domain.entities;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
