@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.hotels.mart.application.dto.ResponseApi;
 import com.hotels.mart.application.services.emails.EmailService;
-import com.hotels.mart.domain.entities.Rating;
 import com.hotels.mart.infrastructure.jpa.repositories.RatingRepository;
 
 @Service

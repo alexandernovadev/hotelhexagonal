@@ -11,11 +11,11 @@ import org.springframework.data.repository.query.Param;
 public interface RatingRepository extends JpaRepository<Rating, Long> {
 
 
-  List<Rating> findByCriteria(
-      @Param("ratingId") Long ratingId,
-      @Param("userId") Long userId,
-      @Param("reservationId") Long reservationId,
-      @Param("rating") Integer rating,
-      @Param("comment") String comment);
+  // List<Rating> findByCriteria(
+  //     @Param("ratingId") Long ratingId,
+  //     @Param("userId") Long userId,
+  //     @Param("reservationId") Long reservationId,
+  //     @Param("rating") Integer rating,
+  //     @Param("comment") String comment);
 
 }
