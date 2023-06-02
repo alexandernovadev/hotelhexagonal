@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.hotels.mart.application.dto.ResponseApi;
 import com.hotels.mart.application.services.emails.EmailService;
+import com.hotels.mart.domain.entities.Rating;
 import com.hotels.mart.infrastructure.jpa.repositories.RatingRepository;
 
 @Service
@@ -27,13 +28,13 @@ public class SearchRatingService {
       int rating,
       String comment) {
 
-    // List<Rating> data = ratingRepository.findByCriteria(
-    //     rating_id,
-    //     reservation_id,
-    //     user_id,
-    //     rating,
-    //     comment
-    // );
+    //  List<Rating> data = ratingRepository.searchByCriteria(
+    //      rating_id,
+    //      reservation_id,
+    //      user_id,
+    //      rating,
+    //      comment
+    //  );
 
     var response = emailService.sendEmail(
         "andresolano34@gmail.com",
