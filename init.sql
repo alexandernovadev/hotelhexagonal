@@ -107,6 +107,7 @@ CREATE TABLE `ratings` (
 ) ENGINE=InnoDB;
 
 
+
 -- Insert into users_state
 INSERT INTO `users_state` (`state`) VALUES ('Active');
 INSERT INTO `users_state` (`state`) VALUES ('Inactive');
@@ -179,3 +180,5 @@ INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `co
 INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (4, 1, 'Room 702', 'Quad room with city view', 200.00);
 INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (5, 1, 'Room 801', 'Queen room with garden view', 250.00);
 INSERT INTO `rooms` (`type_room_id`, `state_room_id`, `name`, `description`, `cost`) VALUES (1, 1, 'Room 802', 'Single room with sea view', 80.00);
+
+
