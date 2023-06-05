@@ -1,0 +1,43 @@
+Historia de Usuario: Calificar una reserva (ID: 7)
+
+ID: 7
+Nombre: Yo, como usuario, deseo calificar una reserva para expresar mi opinión sobre mi experiencia.
+Prioridad en el negocio: Media
+Creado por: Equipo de análisis
+Actor: Usuario
+
+Descripción:
+Como usuario que ha realizado una reserva, deseo poder calificarla y proporcionar mi opinión sobre mi experiencia. Esto permitirá a otros usuarios conocer la calidad del servicio y tomar decisiones informadas al realizar futuras reservas.
+
+Precondiciones:
+- El usuario ha realizado una reserva válida y ha completado su estancia.
+- El usuario tiene una cuenta registrada y ha iniciado sesión en el sistema.
+- La reserva a calificar se encuentra en un estado que permite la calificación (por ejemplo, "completada").
+- El sistema muestra la opción de calificar la reserva al usuario.
+
+Criterios de Aceptación:
+
+Titulo: Escenario 1: Calificar una reserva
+
+Contexto: Dado que el usuario ha finalizado su estancia y desea calificar la reserva
+Evento: Cuando el usuario selecciona la opción de calificación y proporciona una calificación numérica y opcionalmente un comentario
+Resultado: El sistema registra la calificación y el comentario asociados a la reserva correspondiente. Se muestra un mensaje de confirmación al usuario indicando que la calificación se ha registrado exitosamente.
+
+Titulo: Escenario 2: Validación de la calificación
+
+Contexto: Dado que el usuario intenta calificar una reserva que no cumple con las precondiciones establecidas
+Evento: Cuando el usuario intenta calificar una reserva en un estado no permitido o sin haber completado la estancia
+Resultado: El sistema muestra un mensaje de error al usuario indicando que no es posible calificar la reserva en su estado actual. Se proporciona una explicación clara de los requisitos para calificar una reserva.
+
+Titulo: Escenario 3: Modificación de la calificación
+
+Contexto: Dado que el usuario ha calificado previamente una reserva y desea modificar su calificación o comentario
+Evento: Cuando el usuario selecciona la opción de modificar calificación y realiza los cambios deseados
+Resultado: El sistema actualiza la calificación y el comentario asociados a la reserva correspondiente con los nuevos valores proporcionados por el usuario. Se muestra un mensaje de confirmación indicando que la calificación ha sido modificada exitosamente.
+
+Titulo: Escenario 4: Visualización de las calificaciones
+
+Contexto: Dado que un usuario accede a la página de detalles de una reserva
+Evento: Cuando el sistema carga los detalles de la reserva
+Resultado: El sistema muestra la calificación promedio y los comentarios asociados a la reserva. Si no hay calificaciones o comentarios disponibles, se muestra un mensaje indicando que aún no hay calificaciones para esta reserva.
+
