@@ -1,4 +1,5 @@
-# Hotel Reservation Application
+# Book Store breba
+
 
 This is a Java-based Spring Boot application designed to manage the reservations for a hotel. The system is capable of handling various entities like users, reservations, rooms, sales, and traceability data.
 
