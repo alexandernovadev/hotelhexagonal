@@ -31,6 +31,12 @@ public class Book {
   @Column(name = "ISBN", length = 50)
   private String ISBN;
 
+  @Column(name = "image", length = 255)
+  private String image;
+
+  @Column(name = "amount")
+  private Integer amount;
+
   @Column(name = "price")
   private BigDecimal price;
 
