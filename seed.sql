@@ -54,17 +54,23 @@ INSERT INTO users_state (state) VALUES
 ('Suspended'),
 ('Pending Verification');
 
+
+-- Password = admin
 INSERT INTO dbo.users (name, email, password, age, sex_id, profession_id, city_id, created_at, user_state_id) VALUES
-('John Doe', 'johndoe@example.com', 'password123', 30, 1, 1, 1, GETDATE(), 1),
-('Jane Smith', 'janesmith@example.com', 'password123', 28, 2, 2, 2, GETDATE(), 1),
-('Emily Johnson', 'emilyjohnson@example.com', 'password123', 35, 2, 3, 3, GETDATE(), 1),
-('Michael Brown', 'michaelbrown@example.com', 'password123', 40, 1, 4, 4, GETDATE(), 1),
-('Jessica Williams', 'jessicawilliams@example.com', 'password123', 25, 2, 2, 5, GETDATE(), 1),
-('David Miller', 'davidmiller@example.com', 'password123', 32, 1, 1, 6, GETDATE(), 1),
-('Sarah Wilson', 'sarahwilson@example.com', 'password123', 22, 2, 5, 7, GETDATE(), 1),
-('James Taylor', 'jamestaylor@example.com', 'password123', 27, 1, 3, 8, GETDATE(), 1),
-('Laura Moore', 'lauramoore@example.com', 'password123', 29, 2, 4, 9, GETDATE(), 1),
-('Robert Anderson', 'robertanderson@example.com', 'password123', 38, 1, 2, 10, GETDATE(), 1);
+('John Doe', 'johndoe@example.com', '$2a$10$Hq41yQtmOlOUTXnMNi3ed.IMehJDkv5ZBuW5IvbfaTNGr/BXkeGPW', 30, 1, 1, 1, GETDATE(), 1),
+('Jane Smith', 'janesmith@example.com', '$2a$10$Hq41yQtmOlOUTXnMNi3ed.IMehJDkv5ZBuW5IvbfaTNGr/BXkeGPW', 28, 2, 2, 2, GETDATE(), 1),
+('Emily Johnson', 'emilyjohnson@example.com', '$2a$10$Hq41yQtmOlOUTXnMNi3ed.IMehJDkv5ZBuW5IvbfaTNGr/BXkeGPW', 35, 2, 3, 3, GETDATE(), 1),
+('Michael Brown', 'michaelbrown@example.com', '$2a$10$Hq41yQtmOlOUTXnMNi3ed.IMehJDkv5ZBuW5IvbfaTNGr/BXkeGPW', 40, 1, 4, 4, GETDATE(), 1),
+('Jessica Williams', 'jessicawilliams@example.com', '$2a$10$Hq41yQtmOlOUTXnMNi3ed.IMehJDkv5ZBuW5IvbfaTNGr/BXkeGPW', 25, 2, 2, 5, GETDATE(), 1),
+('David Miller', 'davidmiller@example.com', '$2a$10$Hq41yQtmOlOUTXnMNi3ed.IMehJDkv5ZBuW5IvbfaTNGr/BXkeGPW', 32, 1, 1, 6, GETDATE(), 1),
+('Sarah Wilson', 'sarahwilson@example.com', '$2a$10$Hq41yQtmOlOUTXnMNi3ed.IMehJDkv5ZBuW5IvbfaTNGr/BXkeGPW', 22, 2, 5, 7, GETDATE(), 1),
+('James Taylor', 'jamestaylor@example.com', '$2a$10$Hq41yQtmOlOUTXnMNi3ed.IMehJDkv5ZBuW5IvbfaTNGr/BXkeGPW', 27, 1, 3, 8, GETDATE(), 1),
+('Laura Moore', 'lauramoore@example.com', '$2a$10$Hq41yQtmOlOUTXnMNi3ed.IMehJDkv5ZBuW5IvbfaTNGr/BXkeGPW', 29, 2, 4, 9, GETDATE(), 1),
+('Robert Anderson', 'robertanderson@example.com', '$2a$10$Hq41yQtmOlOUTXnMNi3ed.IMehJDkv5ZBuW5IvbfaTNGr/BXkeGPW', 38, 1, 2, 10, GETDATE(), 1);
+
+--UPDATE dbo.users
+--SET password = '$2a$10$Hq41yQtmOlOUTXnMNi3ed.IMehJDkv5ZBuW5IvbfaTNGr/BXkeGPW';
+
 
 INSERT INTO dbo.card_membership (user_id, balance, created_at) VALUES
 (1, 100.00, GETDATE()),
