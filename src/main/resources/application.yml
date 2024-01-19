@@ -1,10 +1,12 @@
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/marthoteldb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
-    password: my-secret-pw
-    
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://arquserver.database.windows.net:1433;database=novasqlazure
+    username: novasqlazure
+    password: Sql321..
   security:
     user:
       name: nova
