@@ -12,8 +12,11 @@ import com.hotels.mart.application.dto.PurshaseDto;
 import com.hotels.mart.application.dto.ResponseFormat;
 import com.hotels.mart.domain.entities.Book;
 import com.hotels.mart.domain.entities.CardMembership;
+import com.hotels.mart.domain.entities.DetailSell;
+import com.hotels.mart.domain.entities.Sell;
 import com.hotels.mart.infrastructure.jpa.repositories.BookRepository;
 import com.hotels.mart.infrastructure.jpa.repositories.CardMembershipRepository;
+import com.hotels.mart.infrastructure.jpa.repositories.DetailSellRepository;
 import com.hotels.mart.infrastructure.jpa.repositories.SellRepository;
 import com.hotels.mart.infrastructure.jpa.repositories.UserRepository;
 
@@ -27,6 +30,9 @@ public class CreateSellService {
 
   @Autowired
   private BookRepository bookRepository;
+
+  @Autowired
+  private DetailSellRepository detailSellRepository;
 
   @Autowired
   private CardMembershipRepository cardmembershipRepository;
@@ -61,7 +67,7 @@ public class CreateSellService {
      * Validate if books exist and if there is a sufficient amount.
      */
     for (PurshaseDto.BookAmount bookAmount : purchaseDto.getBooks()) {
-      
+
       Integer bookId = Integer.valueOf(bookAmount.getId());
 
       Optional<Book> bookOpt = bookRepository.findById(bookId);
@@ -112,17 +118,46 @@ public class CreateSellService {
           LocalDateTime.now());
     }
 
+    // LAST STEP
+
+    // Step 1: Decrease book quantities in the inventory
+    for (PurshaseDto.BookAmount bookAmount : purchaseDto.getBooks()) {
+      Optional<Book> bookOpt = bookRepository.findById(Integer.valueOf(bookAmount.getId()));
+      if (bookOpt.isPresent()) {
+        Book book = bookOpt.get();
+        Integer newAmount = book.getAmount() - bookAmount.getAmount();
+        book.setAmount(newAmount);
+        bookRepository.save(book); // Guardar el libro actualizado en la base de datos
+      }
+    }
+
+    // Step 2, restar balance del card
+    BigDecimal newBalance = cardMembership.getBalance().subtract(totalCost);
+    cardMembership.setBalance(newBalance);
+    cardmembershipRepository.save(cardMembership);
+
+    // Step 3 Register Purchase
+    Sell sell = new Sell();
+    sell.setUser(userRepository.findById(userId).get());
+    sell.setBalance(totalCost);
+    sell.setState("Completed");
+    sell.setCreated_at(LocalDateTime.now());
+    sell = sellRepository.save(sell);
 
     /*
-     * Do purchase
+     * Register all details
      */
 
-    // 1 Restar los libros del inventario
-    // 2 Restar saldo a la tarjeta
-    // 3 Register purshase
-    /*
-     * Final RTA
-     */
+    for (PurshaseDto.BookAmount bookAmount : purchaseDto.getBooks()) {
+      DetailSell detailSell = new DetailSell();
+      detailSell.setSell(sell);
+      detailSell.setBook(bookRepository.findById(Integer.valueOf(bookAmount.getId())).get());
+      detailSell.setAmount(bookAmount.getAmount());
+      detailSell.setPrice(detailSell.getBook().getPrice().multiply(BigDecimal.valueOf(bookAmount.getAmount())));
+      detailSell.setCreated_at(LocalDateTime.now());
+      detailSellRepository.save(detailSell); // Guardar el detalle de la venta en la base de datos
+    }
+
     ResponseFormat responseFormat = new ResponseFormat(
         "The purshase goes succesfully",
         HttpStatus.ACCEPTED.value(),
